@@ -11,10 +11,6 @@ RE = RunEngine(get_history())
 import matplotlib.pyplot as plt
 plt.ion()
 
-# Make plots update live while scans run.
-from bluesky.utils import install_qt_kicker
-install_qt_kicker()
-
 # Optional: set any metadata that rarely changes. in 60-metadata.py
 
 # convenience imports

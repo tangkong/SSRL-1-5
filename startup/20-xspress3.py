@@ -2,6 +2,8 @@ from collections import OrderedDict
 from ssrltools.devices.xspress3 import SSRLXspress3Detector
 from ophyd import Signal
 
+print('-------------------20-xspress3.py startup file')
+
 xsp3 = SSRLXspress3Detector('PVNAMEHERE:', name='xsp3', roi_sums=True)
 
 # bp=blueskyplans, imported by nslsii startup configuration, 

@@ -1,5 +1,7 @@
 """set up the databroker (db)"""
 
+print('-------------------01-databroker.py startup file')
+
 import os
 callback_db = {}
 
