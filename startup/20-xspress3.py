@@ -4,7 +4,7 @@ from ophyd import Signal
 
 print('-------------------20-xspress3.py startup file')
 
-xsp3 = SSRLXspress3Detector('PVNAMEHERE:', name='xsp3', roi_sums=True)
+xsp3 = SSRLXspress3Detector('XSPRESS3-EXAMPLE:', name='xsp3', roi_sums=True)
 
 # bp=blueskyplans, imported by nslsii startup configuration, 
 xsp3.settings.configuration_attrs = ['acquire_period',
