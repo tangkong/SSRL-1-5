@@ -22,17 +22,19 @@ class HiTpStage(Device):
     Instantiate with: HiTpStage('simBL', name='HS')
     """
     #stage x, y
-    stage_x = Cpt(EpicsMotor, 'MOTOR1', kind='hinted')
-    stage_y = Cpt(EpicsMotor, 'MOTOR2', kind='hinted')
+    stage_x = Cpt(EpicsMotor, 'IMS:MOTOR3', kind='hinted')
+    stage_y = Cpt(EpicsMotor, 'IMS:MOTOR4', kind='hinted')
+    stage_z = Cpt(EpicsMotor, 'IMS:MOTOR2', kind='hinted')
 
     # plate vert adjust motor 1, 2
-    plate_x = Cpt(EpicsMotor, 'MOTOR3')
-    plate_y = Cpt(EpicsMotor, 'MOTOR4')
+    plate_x = Cpt(EpicsMotor, 'PICOD1:MOTOR3')
+    plate_y = Cpt(EpicsMotor, 'PICOD1:MOTOR2')
 
-    theta = Cpt(EpicsMotor, ':suffix')
+    theta = Cpt(EpicsMotor, 'IMS:MOTOR1')
 
-    # Laser Range finder?... 
-    height = Cpt(EpicsSignalRO, ':suffix')
+    # Laser Range Finder
+    # Laser range finder?
+    lrf = Cpt(EpicsSignalRO, 'RIO.AI0')
 
     # TODO: Figure out how to access component names within the class 
     # Until then, hard code things I guess
@@ -44,7 +46,7 @@ class HiTpStage(Device):
         
         # hard coding plate positions for now
         self.sample_locs = {}
-        for i in range(len(loc177)):
+        for i in range(len(loc177[0])):
             self.sample_locs[i] = { 'stage_x': loc177[0, i],
                                     'stage_y': loc177[1, i],
                                     'plate_x': 0, #self.plate_x.position,
@@ -134,10 +136,7 @@ class HiTpStage(Device):
 
             return result
 
-
-stage = HiTpStage('BL00:IMS:', name='HiTpStage')
-
-# Laser range finder?
+stage = HiTpStage('BL00:', name='HiTpStage')
 
 # -----------------------------------------------------
 # Eventually.... beamline/hutch controls?
