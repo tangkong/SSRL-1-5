@@ -40,6 +40,7 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
     def stop(self):
         # .stop() walks back to Device class... which does not return anything
         ret = super().stop()
+        self.settings.acqiure.put(0)
         self.hdf5.stop()
         return ret
 
