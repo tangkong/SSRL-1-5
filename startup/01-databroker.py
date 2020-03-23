@@ -6,9 +6,11 @@ import os
 callback_db = {}
 
 # load config from ~/.config/databroker/mongodb_config.yml
-from databroker import Broker
-db = Broker.named("mongoConfig-h5")
+import databroker
+db = databroker.Broker.named("mongoConfig-h5")
 
+# install sentinels
+databroker.assets.utils.install_sentinels(db.reg.config, version=1)
 
 # Subscribe metadatastore to documents.
 # If this is removed, data is not saved to metadatastore.
