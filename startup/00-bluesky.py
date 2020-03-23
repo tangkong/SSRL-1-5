@@ -5,8 +5,8 @@
 
 from bluesky import RunEngine
 RE = RunEngine()
-# from bluesky.utils import PersistentDict 
-# RE.md = PersistentDict('./metadata.md')
+from bluesky.utils import PersistentDict 
+RE.md = PersistentDict('./metadata.md')
 
 # from ssrltools.utils import setup_user_metadata
 # user_md = setup_user_metadata()
