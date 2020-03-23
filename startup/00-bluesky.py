@@ -4,8 +4,13 @@
 """connect with Bluesky"""
 
 from bluesky import RunEngine
-from bluesky.utils import get_history
-RE = RunEngine(get_history())
+RE = RunEngine()
+# from bluesky.utils import PersistentDict 
+# RE.md = PersistentDict('./metadata.md')
+
+# from ssrltools.utils import setup_user_metadata
+# user_md = setup_user_metadata()
+# RE.md.update(user_md)
 
 # Import matplotlib and put it in interactive mode.
 import matplotlib.pyplot as plt
@@ -26,4 +31,4 @@ import bluesky.magics
 # diagnostics
 from bluesky.utils import ts_msg_hook
 #RE.msg_hook = ts_msg_hook
-from bluesky.simulators import summarize_plan
+from bluesky.simulators import summarize_plan   

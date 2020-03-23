@@ -7,7 +7,7 @@ callback_db = {}
 
 # load config from ~/.config/databroker/mongodb_config.yml
 from databroker import Broker
-db = Broker.named("mongoConfig")
+db = Broker.named("mongoConfig-h5")
 
 
 # Subscribe metadatastore to documents.

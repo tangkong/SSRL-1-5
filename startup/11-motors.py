@@ -33,7 +33,6 @@ class HiTpStage(Device):
     theta = Cpt(EpicsMotor, 'IMS:MOTOR1')
 
     # Laser Range Finder
-    # Laser range finder?
     lrf = Cpt(EpicsSignalRO, 'RIO.AI0')
 
     # TODO: Figure out how to access component names within the class 
@@ -103,7 +102,7 @@ class HiTpStage(Device):
         """
         result = []
 
-        if not index:
+        if not index: # Return all sample locations
             loc_lists = {}
             for name in self.component_names:
                 loc_lists[name] = []
