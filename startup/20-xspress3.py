@@ -122,4 +122,4 @@ for n, d in xsp3.channels.items():
     for roi_n in roi_names:
         getattr(d.rois, roi_n).value_sum.kind = 'omitted'
 
-# xsp3.warmup()
+xsp3.warmup()
