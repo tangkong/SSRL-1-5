@@ -20,7 +20,8 @@ class DexelaDet15(SSRLDexelaDet):
     image = Cpt(EpicsSignal, 'ArrayData')
 
     def trigger(self):
-        super().trigger()
+        ret = super().trigger()
+        return ret 
         
     # Could add more attributes to file_plugin
     # could add stage behavior
