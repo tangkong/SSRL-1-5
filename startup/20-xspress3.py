@@ -7,7 +7,7 @@ from ophyd import Component as Cpt
 from ophyd.sim import NullStatus  # TODO: remove after complete/collect are defined
 from ophyd.areadetector.plugins import PluginBase
 from ssrltools.devices.xspress3 import (Xspress3Channel, Xspress3FileStore, 
-										XspressTrigger, Xspress3Detector)
+                                        XspressTrigger, Xspress3Detector)
 from ophyd import Signal
 
 print('-------------------20-xspress3.py startup file')
@@ -20,7 +20,7 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
     hdf5 = Cpt(Xspress3FileStore, 'HDF5:',
                read_path_template='/home/xspress3/data',
                root='/',
-			   write_path_template='/home/xspress3/data'
+               write_path_template='/home/xspress3/data'
                )
 
     def __init__(self, prefix, *, configuration_attrs=None, read_attrs=None,
@@ -95,31 +95,36 @@ xsp3 = SSRLXspress3Detector('XSPRESS3-EXAMPLE:', name='xsp3', roi_sums=True)
 
 # bp=blueskyplans, imported by nslsii startup configuration, 
 xsp3.settings.configuration_attrs = ['acquire_period',
-			           'acquire_time',
-			           'gain',
-			           'image_mode',
-			           'manufacturer',
-			           'model',
-			           'num_exposures',
-			           'num_images',
-			           'temperature',
-			           'temperature_actual',
-			           'trigger_mode',
-			           'config_path',
-			           'config_save_path',
-			           'invert_f0',
-			           'invert_veto',
-			           'xsp_name',
-			           'num_channels',
-			           'num_frames_config',
-			           'run_flags',
-                        'trigger_signal']
+                       'acquire_time',
+                       'gain',
+                       'image_mode',
+                       'manufacturer',
+                       'model',
+                       'num_exposures',
+                       'num_images',
+                       'temperature',
+                       'temperature_actual',
+                       'trigger_mode',
+                       'config_path',
+                       'config_save_path',
+                       'invert_f0',
+                       'invert_veto',
+                       'xsp_name',
+                       'num_channels',
+                       'num_frames_config',
+                       'run_flags',
+                       'trigger_signal']
 
-for n, d in xsp3.channels.items():
+
+# Configure ROI read and config attrs for each roi in each channel
+# We know the number of ROI's per channel apriori, and each channel has same no.
+# Xspress3Detector.__init__() filters devices grabbing only Xspress3Channel's
+for num, channel in xsp3.channels.items():  
     roi_names = ['roi{:02}'.format(j) for j in [1, 2, 3]]
-    d.rois.read_attrs = roi_names
-    d.rois.configuration_attrs = roi_names
-    for roi_n in roi_names:
-        getattr(d.rois, roi_n).value_sum.kind = 'omitted'
+    # set read and config attrs for each channel
+    channel.rois.read_attrs = roi_names
+    channel.rois.configuration_attrs = roi_names
+    for roi_n in roi_names: # Ignore value_sum for reporting
+        getattr(channel.rois, roi_n).value_sum.kind = 'omitted'
 
 xsp3.warmup()
