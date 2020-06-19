@@ -84,58 +84,10 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
                    'filled': {key: False for key in data}}
 
     def collect_asset_docs(self):
-        items = list(self._asset_docs_cache)
-        self._asset_docs_cache.clear()
-        for item in items:
-            yield item
-
-class TestXsp3(XspressTrigger, Xspress3Detector):
-    roi_data = Cpt(PluginBase, 'ROIDATA:')
-    channel1 = Cpt(Xspress3Channel, 'C1_', channel_num=1, read_attrs=['rois'])
-    channel2 = Cpt(Xspress3Channel, 'C2_', channel_num=2, read_attrs=['rois'])
-
-    # Ignoring filestore for now
-    def __init__(self, prefix, *, configuration_attrs=None, read_attrs=None,
-                    **kwargs):
-        if configuration_attrs is None:
-            configuration_attrs = ['external_trig', 'total_points', 
-                                    'spectra_per_point', 'settings',
-                                    'rewindable']
-        if read_attrs is None:
-            read_attrs = ['channel1', 'channel2']
-
-        super().__init__(prefix, configuration_attrs=configuration_attrs,
-                         read_attrs=read_attrs, **kwargs)
-
-        self._asset_docs_cache = deque()
-        self._datum_counter = None
-
-    def stop(self):
-        ret = super().stop()
-        return ret
-
-    def stage(self):
-        if self.spectra_per_point.get() != 1:
-            raise NotImplementedError(
-                'multi spectra per point not supported yet')
-        ret = super().stage()
-        self._datum_counter = itertools.count()
-        return ret
-
-    def unstage(self):
-        self.settings.trigger_mode.put(0)
-        super().unstage()
-        self._datum_counter = None
-
-    def complete(self, *args, **kwargs):
-        self._datum_ids = []
-
-        return NullStatus()
-
-    def collect(self):
-        now = ttime.time()
-        return NullStatus()
-
+        file_plugins = [s for s in self._signals.values() if
+                        hasattr(s, 'collect_asset_docs')]
+        for p in file_plugins:
+            yield from p.collect_asset_docs()
 
 xsp3 = SSRLXspress3Detector('XSPRESS3-EXAMPLE:', name='xsp3', roi_sums=True)
 
@@ -168,4 +120,4 @@ for n, d in xsp3.channels.items():
     for roi_n in roi_names:
         getattr(d.rois, roi_n).value_sum.kind = 'omitted'
 
-# xsp3.warmup()
+xsp3.hdf5.warmup()
