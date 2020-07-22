@@ -1,7 +1,7 @@
 # HiTp stage object
 import bluesky.plan_stubs as bps
 from ophyd import EpicsMotor, Device, Component as Cpt
-from ophyd import EpicsSignalRO
+from ophyd import EpicsSignalRO, EpicsSignal
 from ophyd.sim import SynAxis, SynSignal
 import pandas as pd 
 from pathlib import Path
@@ -139,6 +139,11 @@ stage = HiTpStage('BL00:', name='HiTpStage')
 
 # -----------------------------------------------------
 # Eventually.... beamline/hutch controls?
+## fast shutter
+
+shutter = EpicsSignal('BL00:RIO.DO00', name='FastShutter')
+I1 = EpicsSignalRO('BL00:RIO.AI2', name='I1')
+I0 = EpicsSignalRO('BL00:RIO.AI1', name='I0')
 
 # mono
 
