@@ -1,7 +1,12 @@
 from ophyd import EpicsSignal, Component as Cpt
+from ophyd.signal import SignalRO
+from ophyd import ADComponent as ADC
+from ophyd.areadetector import cam
 from ssrltools.devices.dexela import SSRLDexelaDet, DexelaTiffPlugin
 
 print('-------------------30-dexela.py startup file')
+class HackedCam(cam.DexelaDetectorCam):
+        port_name = Cpt(SignalRO, value='DEX1')
 
 class DexelaDet15(SSRLDexelaDet):
     """
@@ -11,17 +16,22 @@ class DexelaDet15(SSRLDexelaDet):
     det = DexelaDet15(prefix, name='name')
     """
     # DexelaDetector from ophyd pulls in all Dexela specific PV's
-    write_path = 'path/here/to/thing'
+    write_path = 'E:\\dexela_images\\'
+    cam = ADC(HackedCam, '') #cam.DexelaDetectorCam, '') 
     # In case where TIFF plugin is being used
-    tiff = Cpt(DexelaTiffPlugin, 'TIFF1:',
-                        write_path_template=write_path,
-                        read_path_template=write_path)
+    tiff = Cpt(DexelaTiffPlugin, 'TIFF:',
+                       read_attrs=[], configuration_attrs=[],
+                       write_path_template=write_path,
+                       read_path_template='/dexela_images/',
+                       path_semantics='windows')
     # Else there should be an NDArrayData PV
-    image = Cpt(EpicsSignal, 'ArrayData')
+    image = Cpt(EpicsSignal, 'IMAGE1:ArrayData')
+    highest_pixel = Cpt(EpicsSignal, 'HighestPixel')
 
     def trigger(self):
         ret = super().trigger()
-        return ret 
+        self.cam.image_mode.put(0) # Set image mode to single...
+        return ret
         
     # Could add more attributes to file_plugin
     # could add stage behavior
@@ -29,4 +39,4 @@ class DexelaDet15(SSRLDexelaDet):
 
 # Connect PV's to Ophyd objects
 
-dexDet = DexelaDet15('PVName:', name='dexela')
+dexDet = DexelaDet15('SSRL:DEX2923:', name='dexela', read_attrs=['highest_pixel', 'tiff'])
