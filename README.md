@@ -10,7 +10,5 @@ Copy all folders into ~/.ipython
 ### Customization of profile
 Customize bits in user
 
-
-
 Much of these scripts have been adapted from various other beamline configurations, including [APS-USAXS](https://github.com/APS-USAXS), [NSLS-II CMS](https://github.com/NSLS-II-CMS), and [NSLS-II CSX](https://github.com/NSLS-II-CSX)
 
