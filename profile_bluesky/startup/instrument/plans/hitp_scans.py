@@ -5,23 +5,30 @@ scans for high throughput stage
 from .locs import loc177
 from ..devices.stages import s_stage
 from ..devices.dexela import dexDet
-from ..devices.misc_devices import shutter as fs
+from ..devices.misc_devices import shutter as fs, lrf, I0, I1
+from ..framework import db
 
 import time 
 import matplotlib.pyplot as plt
 import bluesky.plans as bp
+from bluesky.preprocessors import inject_md_decorator 
 import bluesky.plan_stubs as bps
 from ssrltools.plans import meshcirc, nscan, level_stage_single
 
 __all__ = ['loc177scan', 'dark_light_plan', 'expTimePlan', 'gather_plot_ims',
-            'plot_dark_corrected', 'multi_run', ]
+            'plot_dark_corrected', 'multi_run', 'level_stage_single', ]
 
 # scan sample locations
+@inject_md_decorator({'plan_name': 'loc177scan'})
 def loc177scan(dets, md={}):
     """loc177scan measures saved locations for a 177 pt 
     hitp library
     """
     # format locations and stage motors
+    if I0 not in dets:
+        dets.append(I0)
+    if I1 not in dets:
+        dets.append(I1)
 
     yield from bp.list_scan(dets, s_stage.px, list(loc177[0]), 
                                 s_stage.py, list(loc177[1]))
@@ -40,16 +47,22 @@ def dark_light_plan(dets=[dexDet], shutter=fs, md={}):
         Example usage:
         >>> RE(dark_light_plan())
     '''
+    if I0 not in dets:
+        dets.append(I0)
+    if I1 not in dets:
+        dets.append(I1)
+
 
     start_time = time.time()
     uids = []
 
+    md['plan_name'] = 'dark_light_plan'
     #yield from bps.sleep(1)
 
     #close fast shutter, take a dark
     yield from bps.mv(fs, 1)
     mdd = md.copy()
-    mdd.update(name='dark')
+    mdd.update(im_type='dark')
     uid = yield from bp.count(dets, md=mdd)
     uids.append(uid)
 
@@ -57,29 +70,42 @@ def dark_light_plan(dets=[dexDet], shutter=fs, md={}):
     # open fast shutter, take light
     yield from bps.mv(fs, 0)
     mdl = md.copy()
-    mdl.update(name='primary')
+    mdl.update(im_type='primary')
     uid = yield from bp.count(dets, md=mdl)
     uids.append(uid)
 
     end_time = time.time()
     print(f'Duration: {end_time - start_time:.3f} sec')
+
+    plot_dark_corrected(db[uids])
+
     return(uids)
 
 
 # Plan for meshgrid + dark/light?...
 
 # image time series
-def expTimePlan(det, timeList=[1]):
+def exp_time_plan(det, timeList=[1]):
     '''
     Run count with each exposure time in time list.  
     Specific to Dexela Detector, only run with single detector
     return uids from each count
     '''
+    primary_det = det
+    dets = []
+    if I0 not in dets:
+        dets.append(I0)
+    if I1 not in dets:
+        dets.append(I1)
+
+    dets.append(primary_det)
+    md = {'acquire_time': 0, 'plan_name': 'exp_time_plan'}
     uids = []
     for time in timeList:
         # set acquire time
-        yield from bps.mov(det.cam.acquire_time, time)
-        uid = yield from bp.count([det], md=dict(acquire_time=time))
+        yield from bps.mov(primary_det.cam.acquire_time, time)
+        md['acquire_time'] = time
+        uid = yield from bp.count(dets, md=md)
 
         yield from bps.sleep(1)
         uids.append(uid)
@@ -141,9 +167,9 @@ def plot_dark_corrected(hdrs):
     '''
 
     for hdr in hdrs:
-        if hdr.start['name']=='dark':
+        if hdr.start['im_type']=='dark':
             darkarr = hdr.table(fill=True)['dexela_image'][1]
-        elif hdr.start['name'] == 'primary':
+        elif hdr.start['im_type'] == 'primary':
             lightarr = hdr.table(fill=True)['dexela_image'][1]
         else:
             print('mislabeled data... ignoring for now')
@@ -164,6 +190,8 @@ def plot_MCA(hdrs):
     plt.ylabel('Total counts')
 
 def multi_run(acq_time, reps): 
+    '''multiple acquisition run.  Single dark image, multiple light
+    '''
     yield from bps.mv(dexDet.cam.acquire_time, acq_time) 
     print(dexDet.cam.acquire_time.read()) 
     yield from bps.mv(fs, 1) 
@@ -176,3 +204,14 @@ def multi_run(acq_time, reps):
         light_uids.append(light_uid) 
     
     return (dark_uid, light_uids) 
+    
+def level_s_stage():
+    """level_s_stage level s_stage vx, vy
+    """
+    # level on y axis
+    yield from bps.mv(s_stage.px, -43)
+    yield from level_stage_single(lrf, s_stage.vx, s_stage.px, -85, 85)
+
+    # level on x axis
+    yield from bps.mv(s_stage.py, 0)
+    yield from level_stage_single(lrf, s_stage.vy, s_stage.py, 58, -58)

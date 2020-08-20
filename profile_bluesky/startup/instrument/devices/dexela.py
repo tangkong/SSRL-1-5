@@ -20,7 +20,7 @@ class DexelaDet15(SSRLDexelaDet):
     """
     # DexelaDetector from ophyd pulls in all Dexela specific PV's
     write_path = 'E:\\dexela_images\\'
-    cam = ADC(HackedCam, '') #cam.DexelaDetectorCam, '') 
+    cam = ADC(HackedCam, '' ) #cam.DexelaDetectorCam, '') 
     # In case where TIFF plugin is being used
     tiff = Cpt(DexelaTiffPlugin, 'TIFF:',
                        read_attrs=[], configuration_attrs=[],
@@ -44,3 +44,5 @@ class DexelaDet15(SSRLDexelaDet):
 
 dexDet = DexelaDet15('SSRL:DEX2923:', name='dexela', 
                         read_attrs=['highest_pixel', 'tiff'])
+
+dexDet.configuration_attrs.append('cam.num_images')

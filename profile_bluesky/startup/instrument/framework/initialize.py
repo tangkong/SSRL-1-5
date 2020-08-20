@@ -20,6 +20,7 @@ def get_md_path():
         path = os.path.join(home, ".config", md_dir_name)
     return path
 
+old_md = None
 md_path = get_md_path()
 
 if not os.path.exists(md_path):
