@@ -1,0 +1,31 @@
+{
+    "fccd": {
+        "_id": "fccd",
+        "active": true,
+        "args": [
+            "{{prefix}}"
+        ],
+        "beamline": "1-5",
+        "creation": "Mon Mar  9 15:55:46 2020",
+        "detailed_screen": null,
+        "device_class": "ssrltools.devices.xspress3.Xspress3Detector",
+        "documentation": null,
+        "embedded_screen": null,
+        "engineering_screen": null,
+        "functional_group": "Camera",
+        "kwargs": {
+            "name": "{{name}}"
+        },
+        "last_edit": "Mon Mar  9 15:55:46 2020",
+        "lightpath": false,
+        "location_group": "Location 1",
+        "macros": null,
+        "name": "fccd",
+        "parent": null,
+        "prefix": "BL00:",
+        "stand": null,
+        "system": null,
+        "type": "Device",
+        "z": -1.0
+    }
+}

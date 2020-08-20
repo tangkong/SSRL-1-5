@@ -1,7 +1,7 @@
 # HiTp stage object
 import bluesky.plan_stubs as bps
 from ophyd import EpicsMotor, Device, Component as Cpt
-from ophyd import EpicsSignalRO
+from ophyd import EpicsSignalRO, EpicsSignal
 from ophyd.sim import SynAxis, SynSignal
 import pandas as pd 
 from pathlib import Path
@@ -33,7 +33,6 @@ class HiTpStage(Device):
     theta = Cpt(EpicsMotor, 'IMS:MOTOR1')
 
     # Laser Range Finder
-    # Laser range finder?
     lrf = Cpt(EpicsSignalRO, 'RIO.AI0')
 
     # TODO: Figure out how to access component names within the class 
@@ -103,7 +102,7 @@ class HiTpStage(Device):
         """
         result = []
 
-        if not index:
+        if not index: # Return all sample locations
             loc_lists = {}
             for name in self.component_names:
                 loc_lists[name] = []
@@ -140,6 +139,11 @@ stage = HiTpStage('BL00:', name='HiTpStage')
 
 # -----------------------------------------------------
 # Eventually.... beamline/hutch controls?
+## fast shutter
+
+shutter = EpicsSignal('BL00:RIO.DO00', name='FastShutter')
+I1 = EpicsSignalRO('BL00:RIO.AI2', name='I1')
+I0 = EpicsSignalRO('BL00:RIO.AI1', name='I0')
 
 # mono
 

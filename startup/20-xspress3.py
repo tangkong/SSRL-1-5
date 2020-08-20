@@ -18,8 +18,8 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
     channel2 = Cpt(Xspress3Channel, 'C2_', channel_num=2, read_attrs=['rois'])
 
     hdf5 = Cpt(Xspress3FileStore, 'HDF5:',
-               read_path_template='/home/tempdata/xspress3/',
-               root='/'
+			   write_path_template='/home/xspress3/data',
+               read_path_template='/home/b_campen/remote_data/xspress3-2'
                )
 
     def __init__(self, prefix, *, configuration_attrs=None, read_attrs=None,
@@ -36,8 +36,22 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
         self._asset_docs_cache = deque()
         self._datum_counter = None
 
+    def trigger(self):
+        if self.hdf5.capture.get() == 0:
+            # create new resource document, again stage does this the first time
+            self.hdf5._fn = self.hdf5.file_template.get() % (self.hdf5._fp,
+                                                        self.hdf5.file_name.get(),
+                                                        self.hdf5.file_number.get())
+            self.hdf5._generate_resource({})
+            self.hdf5._filestore_res = self.hdf5._asset_docs_cache[-1][-1]
+            
+            #stage() turns this on once, but subsequent triggers don't
+            self.hdf5.capture.put(1)
+        ret = super().trigger()
+        return ret
     def stop(self):
         # .stop() walks back to Device class... which does not return anything
+        #print('>>>>>>>>>>>>>>>>>>>>>>>> xsp3.stop')
         ret = super().stop()
         self.hdf5.stop()
         return ret
@@ -51,7 +65,7 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
         return ret
 
     def unstage(self):
-        self.settings.trigger_mode.put(0)  # 'Software'
+        #self.settings.trigger_mode.put(0)  # 'Software'
         super().unstage()
         self._datum_counter = None
 
@@ -77,6 +91,7 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
 
     def collect(self):
         now = ttime.time()
+        print(f'now: {now}')
         for datum_id in self._datum_ids:
             data = {self.name: datum_id}
             yield {'data': data,
@@ -88,6 +103,11 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
                         hasattr(s, 'collect_asset_docs')]
         for p in file_plugins:
             yield from p.collect_asset_docs()
+                                
+        #items = list(self._asset_docs_cache)
+        #self._asset_docs_cache.clear()
+        #for item in items:
+        #    yield item
 
 xsp3 = SSRLXspress3Detector('XSPRESS3-EXAMPLE:', name='xsp3', roi_sums=True)
 
@@ -114,10 +134,11 @@ xsp3.settings.configuration_attrs = ['acquire_period',
                         'trigger_signal']
 
 for n, d in xsp3.channels.items():
-    roi_names = ['roi{:02}'.format(j) for j in [1, 2, 3, 4]]
+    roi_names = ['roi{:02}'.format(j) for j in [1, 2, 3]]
     d.rois.read_attrs = roi_names
     d.rois.configuration_attrs = roi_names
     for roi_n in roi_names:
         getattr(d.rois, roi_n).value_sum.kind = 'omitted'
+
 
 xsp3.hdf5.warmup()

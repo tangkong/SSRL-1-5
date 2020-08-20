@@ -6,9 +6,14 @@ import os
 callback_db = {}
 
 # load config from ~/.config/databroker/mongodb_config.yml
-from databroker import Broker
-db = Broker.named("mongoConfig")
+# load intake catalog from ~/.local/share/intake/mongo_cat.yml
+import databroker
+# db = databroker.Broker.named("mongo_cat")
+db = databroker.Broker.named("mongoConfig")
 
+# install sentinels
+# Only needs to be executed once?...  Otherwise it breaks things
+# databroker.assets.utils.install_sentinels(db.reg.config, version=1)
 
 # Subscribe metadatastore to documents.
 # If this is removed, data is not saved to metadatastore.
