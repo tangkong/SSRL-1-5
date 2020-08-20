@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export CONDA_ACTIVATE=.........................
+export CONDA_ENVIRONMENT=collect_2020q2
+
+export IPYTHON_DIR=~/.ipython
+export IPYTHON_PROFILE=bluesky
+export IPYTHON_OPTIONS=
+export IPYTHON_OPTIONS="${IPYTHON_OPTIONS} --profile=${IPYTHON_PROFILE}"
+export IPYTHON_OPTIONS="${IPYTHON_OPTIONS} --ipython-dir=${IPYTHON_DIR}"
+export IPYTHON_OPTIONS="${IPYTHON_OPTIONS} --IPCompleter.use_jedi=False"
+
+source ${CONDA_ACTIVATE} ${CONDA_ENVIRONMENT}

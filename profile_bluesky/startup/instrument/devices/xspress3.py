@@ -1,7 +1,12 @@
+"""
+xspress3 configuration
+"""
+
+__all__ = ['xsp3', ]
+
 from collections import OrderedDict, deque
 import itertools
 import time as ttime
-
 
 from ophyd import Component as Cpt
 from ophyd.sim import NullStatus  # TODO: remove after complete/collect are defined
@@ -10,7 +15,9 @@ from ssrltools.devices.xspress3 import (Xspress3Channel, Xspress3FileStore,
 										XspressTrigger, Xspress3Detector)
 from ophyd import Signal
 
-print('-------------------20-xspress3.py startup file')
+from ..session_logs import logger
+
+logger.info(__file__)
 
 class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
     roi_data = Cpt(PluginBase, 'ROIDATA:')
@@ -38,7 +45,7 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
 
     def trigger(self):
         if self.hdf5.capture.get() == 0:
-            # create new resource document, again stage does this the first time
+            # create new resource document, stage does this the first time
             self.hdf5._fn = self.hdf5.file_template.get() % (self.hdf5._fp,
                                                         self.hdf5.file_name.get(),
                                                         self.hdf5.file_number.get())
@@ -139,6 +146,5 @@ for n, d in xsp3.channels.items():
     d.rois.configuration_attrs = roi_names
     for roi_n in roi_names:
         getattr(d.rois, roi_n).value_sum.kind = 'omitted'
-
 
 xsp3.hdf5.warmup()

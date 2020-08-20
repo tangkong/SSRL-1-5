@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 *.egg-info/
 *.egg
+
+.logs/
+.metadata/
+
+docs/source/_build/
