@@ -4,6 +4,7 @@ stages
 
 __all__ = ['s_stage',]
 
+from ..framework import sd
 from ..session_logs import logger
 logger.info(__file__)
 
@@ -23,3 +24,6 @@ class HiTpStage(MotorBundle):
     th = Cpt(EpicsMotor, 'BL00:IMS:MOTOR1', labels=('sample',))
 
 s_stage = HiTpStage('', name='s_stage')
+
+# measure stage status at beginning of every plan
+sd.baseline.append(s_stage)
