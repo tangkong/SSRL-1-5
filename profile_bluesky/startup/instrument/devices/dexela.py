@@ -2,7 +2,7 @@ from ophyd import EpicsSignal, Component as Cpt
 from ophyd.signal import SignalRO
 from ophyd import ADComponent as ADC
 from ophyd.areadetector import cam
-from ssrltools.devices.dexela import SSRLDexelaDet, DexelaTiffPlugin
+from ssrltools.devices.areadetectors import SSRLDexelaDet, DexelaTiffPlugin
 
 from ..session_logs import logger
 logger.info(__file__)
@@ -29,7 +29,7 @@ class DexelaDet15(SSRLDexelaDet):
                        path_semantics='windows')
     # Else there should be an NDArrayData PV
     image = Cpt(EpicsSignal, 'IMAGE1:ArrayData')
-    highest_pixel = Cpt(EpicsSignal, 'HighestPixel')
+    highest_pixel = Cpt(EpicsSignal, 'HighestPixel', labels=('point_det',))
 
     def trigger(self):
         ret = super().trigger()
