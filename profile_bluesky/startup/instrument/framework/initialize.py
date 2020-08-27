@@ -61,6 +61,7 @@ RE.waiting_hook = pbar_manager
 from IPython import get_ipython
 from bluesky.magics import BlueskyMagics
 get_ipython().register_magics(BlueskyMagics)
+get_ipython().magic("automagic 0") # Turn off automagic
 
 # Set up the BestEffortCallback.
 from bluesky.callbacks.best_effort import BestEffortCallback
