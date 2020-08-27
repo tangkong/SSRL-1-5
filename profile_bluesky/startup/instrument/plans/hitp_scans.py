@@ -5,6 +5,7 @@ scans for high throughput stage
 from .locs import loc177
 from ..devices.stages import s_stage
 from ..devices.dexela import dexDet
+from ..devices.xspress3 import xsp3
 from ..devices.misc_devices import shutter as fs, lrf, I0, I1
 from ..framework import db
 
@@ -19,10 +20,17 @@ __all__ = ['loc177scan', 'dark_light_plan', 'expTimePlan', 'gather_plot_ims',
             'plot_dark_corrected', 'multi_run', 'level_stage_single', ]
 
 # scan sample locations
-@inject_md_decorator({'plan_name': 'loc177scan'})
-def loc177scan(dets, md={}):
-    """loc177scan measures saved locations for a 177 pt 
-    hitp library
+@inject_md_decorator({'macro_name': 'loc177scan'})
+def loc177scan(dets):
+    """loc177scan scans across a library with 177 points, measuring each 
+    detector in dets
+
+    [extended_summary]
+
+    :param dets: detectors to be 
+    :type dets: list
+    :yield: things from list_scan
+    :rtype: Msg
     """
     # format locations and stage motors
     if I0 not in dets:
@@ -30,12 +38,16 @@ def loc177scan(dets, md={}):
     if I1 not in dets:
         dets.append(I1)
 
+    if xsp3 in dets:
+        yield from bps.mv(xsp3.total_points, 177)
+
     yield from bp.list_scan(dets, s_stage.px, list(loc177[0]), 
                                 s_stage.py, list(loc177[1]))
 
 
 # collection plans
 # Basic dark > light collection plan
+@inject_md_decorator({'macro_name':'dark_light_plan'})
 def dark_light_plan(dets=[dexDet], shutter=fs, md={}):
     '''
         Simple acquisition plan:
@@ -52,12 +64,8 @@ def dark_light_plan(dets=[dexDet], shutter=fs, md={}):
     if I1 not in dets:
         dets.append(I1)
 
-
     start_time = time.time()
     uids = []
-
-    md['plan_name'] = 'dark_light_plan'
-    #yield from bps.sleep(1)
 
     #close fast shutter, take a dark
     yield from bps.mv(fs, 1)
@@ -85,6 +93,7 @@ def dark_light_plan(dets=[dexDet], shutter=fs, md={}):
 # Plan for meshgrid + dark/light?...
 
 # image time series
+@inject_md_decorator({'macro_name':'exposure_time_series'})
 def exp_time_plan(det, timeList=[1]):
     '''
     Run count with each exposure time in time list.  
@@ -189,7 +198,8 @@ def plot_MCA(hdrs):
     plt.xlabel('Energy (keV)')
     plt.ylabel('Total counts')
 
-def multi_run(acq_time, reps): 
+@inject_md_decorator({'macro_name':'multi_acquire_plan'})
+def multi_acquire_plan(acq_time, reps): 
     '''multiple acquisition run.  Single dark image, multiple light
     '''
     yield from bps.mv(dexDet.cam.acquire_time, acq_time) 
@@ -204,7 +214,8 @@ def multi_run(acq_time, reps):
         light_uids.append(light_uid) 
     
     return (dark_uid, light_uids) 
-    
+
+@inject_md_decorator({'macro_name': 'level_s_stage'})    
 def level_s_stage():
     """level_s_stage level s_stage vx, vy
     """
