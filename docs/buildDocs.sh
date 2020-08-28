@@ -19,7 +19,9 @@ set -x
  
 yum -y update
 yum -y install epel-release
-yum -y install git rsync python-sphinx python-sphinx-rtd-theme ipython3 make
+yum -y install git rsync python3 make
+
+pip install sphinx-rtd-theme ipython
 
 #####################
 # DECLARE VARIABLES #

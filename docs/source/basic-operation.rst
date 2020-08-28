@@ -24,3 +24,12 @@ Standard plans are stored under the variables ``bp`` or ``bps``, which stand for
 
 ``bp.scan``
 +++++++++++
+.. ipython:: 
+
+    In [1]: a = 1
+
+
+.. code-block:: python
+
+    def a(x):
+        return x+2
