@@ -18,6 +18,7 @@ set -x
 ###################
  
 yum -y update
+yum -y install epel-release
 yum -y install git rsync python3-sphinx python3-sphinx-rtd-theme ipython3 make
 
 #####################
