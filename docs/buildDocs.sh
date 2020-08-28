@@ -19,9 +19,7 @@ set -x
  
 yum -y update
 yum -y install epel-release
-yum -y install git rsync python3 make
-
-python -m pip install --upgrade pip
+yum -y install git rsync python3 make python-pip
 
 pip install sphinx-rtd-theme ipython
 
