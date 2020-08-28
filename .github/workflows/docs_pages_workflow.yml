@@ -12,8 +12,7 @@ jobs:
     container: centos:centos7
  
     steps:
-    - uses: actions/setup-python@v2
-     
+ 
     - name: Prereqs
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -22,15 +21,6 @@ jobs:
         yum install -y git
         git clone --depth 1 "https://token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" .
       shell: bash
- 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
 
     - name: Execute script to build our documentation and update pages
       env:
