@@ -17,8 +17,8 @@ set -x
 # INSTALL DEPENDS #
 ###################
  
-apt-get update
-apt-get -y install git rsync python3-sphinx python3-sphinx-rtd-theme ipython3
+yum -y update
+yum -y install git rsync python3-sphinx python3-sphinx-rtd-theme ipython3
 
 #####################
 # DECLARE VARIABLES #
