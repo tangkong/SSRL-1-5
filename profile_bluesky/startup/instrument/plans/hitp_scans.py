@@ -16,16 +16,14 @@ from bluesky.preprocessors import inject_md_decorator
 import bluesky.plan_stubs as bps
 from ssrltools.plans import meshcirc, nscan, level_stage_single
 
-__all__ = ['loc177scan', 'dark_light_plan', 'expTimePlan', 'gather_plot_ims',
+__all__ = ['loc_177_scan', 'dark_light_plan', 'expTimePlan', 'gather_plot_ims',
             'plot_dark_corrected', 'multi_run', 'level_stage_single', ]
 
 # scan sample locations
-@inject_md_decorator({'macro_name': 'loc177scan'})
-def loc177scan(dets):
-    """loc177scan scans across a library with 177 points, measuring each 
+@inject_md_decorator({'macro_name': 'loc_177_scan'})
+def loc_177_scan(dets):
+    """loc_177_scan scans across a library with 177 points, measuring each 
     detector in dets
-
-    [extended_summary]
 
     :param dets: detectors to be 
     :type dets: list
@@ -99,6 +97,8 @@ def exp_time_plan(det, timeList=[1]):
     Run count with each exposure time in time list.  
     Specific to Dexela Detector, only run with single detector
     return uids from each count
+
+    # TO-DO: Fix so both are under the same start document
     '''
     primary_det = det
     dets = []
