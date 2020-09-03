@@ -41,7 +41,11 @@ ROI ranges should be adjusted from the EDM display.
 
 .. code:: ipython
 
-    #TO-DO inspect ROI values?
+    In [1]: xsp3.channel1.rois.roi01.read()
+    Out[1]:
+    OrderedDict([('xsp3_channel1_rois_roi01_value',
+                {'value': 0.0, 'timestamp': 1598804648.400984})])
+
 
 Taking single measurements via ``bp.count`` is valid.
 
@@ -52,8 +56,8 @@ Taking single measurements via ``bp.count`` is valid.
 If taking multiple acquisitions in one run, we must make sure the ``xsp3.total_points``
 variable matches the number of acquisitions to be taken.  This ensures that all MCA's 
 in one run will be placed in a single h5 file.  Bluesky and Databroker assume 
-this behavior when accessing saved data.  *We have done our best to create plans 
-that cover this use case*, but if needed this value can be adjusted manually.
+this behavior when accessing saved data.  **We have done our best to create plans 
+that cover this use case**, but if needed this value can be adjusted manually.
 
 .. code:: ipython
 
@@ -61,8 +65,31 @@ that cover this use case*, but if needed this value can be adjusted manually.
 
     In [2]: RE(bp.scan([xsp3], motor, -1, 1, 5))
 
+    Transient Scan ID: 2     Time: 2020-09-02 09:57:51
+    Persistent Unique Scan ID: 'f0c7917f-f8bf-4d00-88a6-a9383f0920bb'
+    New stream: 'primary'
+    +-----------+------------+------------+
+    |   seq_num |       time |      motor |
+    +-----------+------------+------------+
+    |         1 | 09:57:53.2 |     -1.000 |
+    |         2 | 09:57:54.5 |     -0.500 |
+    |         3 | 09:57:55.6 |      0.000 |
+    |         4 | 09:57:56.6 |      0.500 |
+    |         5 | 09:57:57.7 |      1.000 |
+    +-----------+------------+------------+
+    generator scan ['f0c7917f'] (scan num: 2)
+
     In [3]: db[-1].table(fill=True)
-    Out [3]: # TO-DO output for table.
+    Out[5]:
+                                    time  ...                                      xsp3_channel2
+    seq_num                                ...
+    1       2020-09-02 16:57:53.278821945  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...
+    2       2020-09-02 16:57:54.541794538  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...
+    3       2020-09-02 16:57:55.604745626  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...
+    4       2020-09-02 16:57:56.668115139  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...
+    5       2020-09-02 16:57:57.731433153  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...
+
+    [5 rows x 11 columns]
 
 
 Motors
