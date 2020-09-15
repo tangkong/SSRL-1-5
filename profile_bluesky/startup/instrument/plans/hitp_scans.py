@@ -4,7 +4,6 @@ scans for high throughput stage
 
 from .locs import loc177
 from ..devices.stages import s_stage
-from ..devices.dexela import dexDet
 from ..devices.xspress3 import xsp3
 from ..devices.misc_devices import shutter as fs, lrf, I0, I1
 from ..framework import db
@@ -46,7 +45,7 @@ def loc_177_scan(dets):
 # collection plans
 # Basic dark > light collection plan
 @inject_md_decorator({'macro_name':'dark_light_plan'})
-def dark_light_plan(dets=[dexDet], shutter=fs, md={}):
+def dark_light_plan(dets, shutter=fs, md={}):
     '''
         Simple acquisition plan:
         - Close shutter, take image, open shutter, take image, close shutter
@@ -199,18 +198,18 @@ def plot_MCA(hdrs):
     plt.ylabel('Total counts')
 
 @inject_md_decorator({'macro_name':'multi_acquire_plan'})
-def multi_acquire_plan(acq_time, reps): 
+def multi_acquire_plan(det, acq_time, reps): 
     '''multiple acquisition run.  Single dark image, multiple light
     '''
-    yield from bps.mv(dexDet.cam.acquire_time, acq_time) 
-    print(dexDet.cam.acquire_time.read()) 
+    yield from bps.mv(det.cam.acquire_time, acq_time) 
+    print(det.cam.acquire_time.read()) 
     yield from bps.mv(fs, 1) 
-    dark_uid = yield from bp.count([dexDet], md={'name':'dark'}) 
+    dark_uid = yield from bp.count([det], md={'name':'dark'}) 
     yield from bps.mv(fs, 0) 
     light_uids = [] 
     
     for _ in range(reps): 
-        light_uid = yield from bp.count([dexDet], md={'name':'primary'}) 
+        light_uid = yield from bp.count([det], md={'name':'primary'}) 
         light_uids.append(light_uid) 
     
     return (dark_uid, light_uids) 
