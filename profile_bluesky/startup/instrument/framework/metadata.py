@@ -1,5 +1,3 @@
-__all__ = ['RE',]
-
 from ..session_logs import logger
 logger.info(__file__)
 
@@ -40,3 +38,13 @@ RE.md["versions"] = dict(
     matplotlib = matplotlib.__version__,
     pymongo = pymongo.__version__,
 )
+
+def show_md():
+    print('Persistent Metadata --------------------')
+    for key, item in RE.md.items():
+        print(f'{key}: {item}')
+
+    print('----------------------------------------')
+
+def update_md(key, item):
+    print('Update persistent metadata with the syntax: RE.md["key"]="item"')
