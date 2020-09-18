@@ -15,8 +15,8 @@ from bluesky.preprocessors import inject_md_decorator
 import bluesky.plan_stubs as bps
 from ssrltools.plans import meshcirc, nscan, level_stage_single
 
-__all__ = ['loc_177_scan', 'dark_light_plan', 'expTimePlan', 'gather_plot_ims',
-            'plot_dark_corrected', 'multi_run', 'level_stage_single', ]
+__all__ = ['loc_177_scan', 'dark_light_plan', 'exp_time_plan', 'gather_plot_ims',
+            'plot_dark_corrected', 'multi_acquire_plan', 'level_stage_single', ]
 
 # scan sample locations
 @inject_md_decorator({'macro_name': 'loc_177_scan'})
