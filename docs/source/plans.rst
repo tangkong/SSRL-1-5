@@ -3,9 +3,13 @@ Plans
 =====
 
 A variety of plans for your use.  These are built out of Bluesky 
-`plans <https://blueskyproject.io/bluesky/plans.html#pre-assembled-plans>`__ and 
-`plan stubs <https://blueskyproject.io/bluesky/plans.html#stub-plans>`__, and 
-customized to be very specific to operations at SSRL1-5.  
+`plans`_ and `plan stubs`_, and customized to be very specific to operations 
+at SSRL1-5.  If you'd like to build
+your own plans out of the existing plans, see this `tutorial section`_.
+
+.. _plans:  https://blueskyproject.io/bluesky/plans.html#pre-assembled-plans
+.. _plan stubs: https://blueskyproject.io/bluesky/plans.html#stub-plans
+.. _tutorial section: https://nsls-ii.github.io/bluesky/tutorial.html#plans-in-series
 
 Helper functions, plans
 =======================
@@ -13,7 +17,7 @@ Helper functions, plans
 ``show_table()``:
 -----------------
 Shows data from the last run in tablular from.  Providing an index (i) 
-will return data from the 'i-th' run.
+will return data from the 'i-th' run.  This is simply a wrapper for ``db[i].table()``
 
 .. code:: ipython
 
