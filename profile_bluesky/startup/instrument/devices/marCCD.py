@@ -1,7 +1,8 @@
-from ophyd import SingleTrigger, Component as Cpt
+from ophyd import SingleTrigger, Component as Cpt, ADComponent as ADC
 
 from ophyd.areadetector.detectors import MarCCDDetector
 from ssrltools.devices.areadetectors import MarTiffFakePlugin, MarFileStoreTIFF
+from ophyd.areadetector import cam
 
 from ..session_logs import logger
 logger.info(__file__)
@@ -15,6 +16,9 @@ class MarCCDDet15(SingleTrigger, MarCCDDetector):
     """
     # file write path
     write_path = '/tmp/marccd/'
+
+    # no cam subdivision
+    cam = ADC(cam.MarCCDDetectorCam, '')
 
     tiff = Cpt(MarFileStoreTIFF, '', 
                 write_path_template=write_path,
