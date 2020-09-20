@@ -39,7 +39,7 @@ def tiff_factory(name, start_doc):
 
     return [cb], []
 
-tiff_rr = RunRouter([tiff_factory], discover_handlers)
+tiff_rr = RunRouter([tiff_factory], discover_handlers())
 
 callback_db['tiff_rr'] = RE.subscribe(tiff_rr)
 
