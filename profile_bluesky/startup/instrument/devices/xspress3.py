@@ -26,7 +26,7 @@ class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
 
     hdf5 = Cpt(Xspress3FileStore, 'HDF5:',
 			   write_path_template='/home/xspress3/data',
-               read_path_template='/home/b_campen/remote_data/xspress3-2'
+               read_path_template='/home/b_spec/remote_data/xspress3-2'
                )
 
     def __init__(self, prefix, *, configuration_attrs=None, read_attrs=None,
