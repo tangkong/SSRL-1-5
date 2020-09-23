@@ -225,5 +225,5 @@ def level_s_stage():
     yield from level_stage_single(lrf, s_stage.vx, s_stage.px, -50, 50)
 
     # level on x axis
-    yield from bps.mv(s_stage.px. 0, s_stage.py, 0)
+    yield from bps.mv(s_stage.px, 0, s_stage.py, 0)
     yield from level_stage_single(lrf, s_stage.vy, s_stage.py, 60, -60)
