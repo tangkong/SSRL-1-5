@@ -67,6 +67,21 @@ will return data from the 'i-th' run.  This is simply a wrapper for ``db[i].tabl
     seq_num
     1       2020-09-03 21:32:59.126556158  0.988639
 
+``show_image()``:
+-----------------
+Shows last marCCD image, simple wrapper function around databroker call.  
+Sets heat map scale to (min, mean+3*std).  Defaults to first marccd data point 
+in most recent scan, but allows for customization.
+
+.. code:: ipython 
+
+    In [1]: show_image(ind=-1, data_pt=1, img_key='marCCD_image') #these are the default parameters
+
+
+
+
+
+
 ``tune(signal, axis)`` : 
 ------------------------
 Tunes a motor based on output from a signal.  A width and number of steps can be
@@ -149,3 +164,17 @@ uid of each image.
 
 .. exp_time_plan
 .. multi_acquire plan
+
+
+``level_stage_single``
+----------------------
+
+as of the writing of this passage (09/20/2020), the single wafer stage can be 
+leveled via the following commands
+
+.. code-block:: ipython
+
+In [19]: RE(level_stage_single(lrf, s_stage.vx, s_stage.px, -50, 50))
+
+In [19]: RE(level_stage_single(lrf, s_stage.vy, s_stage.py, 60, -60))
+

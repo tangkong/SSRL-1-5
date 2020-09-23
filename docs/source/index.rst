@@ -17,6 +17,7 @@ Index:
    :caption: User Documentation
    :maxdepth: 1
 
+   beamline-startup
    basic-operation
    devices
    plans
