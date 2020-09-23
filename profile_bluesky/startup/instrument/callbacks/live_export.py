@@ -6,7 +6,7 @@ Set up callback to live export data as they are collected.
 
 from ..framework.initialize import RE, callback_db
 
-from itertools import tee
+import copy
 
 import suitcase.tiff_series as st
 import suitcase.csv as sc
