@@ -13,15 +13,19 @@ import suitcase.csv as sc
 import suitcase.json_metadata as sj
 
 from event_model import RunRouter
+from event_model import Filler
 from databroker.core import discover_handlers
 
 __all__ = ['csv_rr', 'tiff_rr', 'meta_rr']
+
+f = Filler(discover_handlers())
 
 def csv_factory(name, start_doc):
     serializer = sc.Serializer( 
         '/home/b_spec/export/csv/', file_prefix='Scan{start[scan_id]}-' )
 
     def cb(name, doc):
+        f(name, doc)
         serializer(name, doc) 
 
     return [cb], []
@@ -30,12 +34,45 @@ csv_rr = RunRouter([csv_factory])
 
 callback_db['csv_rr'] = RE.subscribe(csv_rr)
 
+
+class Selector(DocumentRouter):
+    def __init__(self, exclude=None, **kwargs):
+        self._exclude = exclude or []
+        super().__init__(**kwargs)
+
+    def start(self, doc):
+        self.emit('start', doc)
+
+    def descriptor(self, doc):
+        edited = copy.deepcopy(doc)
+        for key in self._exclude:
+            edited['data_keys'].pop(key, None)
+        self.emit('descriptor', edited)
+
+    def event(self, doc):
+        edited = copy.deepcopy(doc)
+        f('event', edited)
+        for key in self._exclude:
+            edited['data'].pop(key, None)
+            edited['timestamps'].pop(key, None)
+        print(self.emit)
+        print(edited)
+        self.emit('event', edited)
+    
+    def stop(self, doc):
+        self.emit('stop', doc)
+
+
 def tiff_factory(name, start_doc):
     serializer = st.Serializer( 
         '/home/b_spec/export/tiff/', file_prefix='Scan{start[scan_id]}-' )
 
-    def cb(name, doc):
-        serializer(name, doc) 
+    selector = Selector(exclude=['xsp3_channel1', 'xsp3_channel2'], 
+                        emit=serializer)
+
+    selector._stashed_hard_ref_to_serializer = serializer
+    return [selector], []
+
 
     return [cb], []
 
