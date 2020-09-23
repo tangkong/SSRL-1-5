@@ -25,7 +25,6 @@ def csv_factory(name, start_doc):
         '/home/b_spec/export/csv/', file_prefix='Scan{start[scan_id]}-' )
 
     def cb(name, doc):
-        f(name, doc)
         serializer(name, doc) 
 
     return [cb], []
