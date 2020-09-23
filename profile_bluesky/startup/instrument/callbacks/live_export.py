@@ -12,7 +12,7 @@ import suitcase.tiff_series as st
 import suitcase.csv as sc
 import suitcase.json_metadata as sj
 
-from event_model import RunRouter
+from event_model import RunRouter, DocumentRouter
 from event_model import Filler
 from databroker.core import discover_handlers
 
