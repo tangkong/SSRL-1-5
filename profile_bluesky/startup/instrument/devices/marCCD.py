@@ -15,14 +15,14 @@ class MarCCDDet15(SingleTrigger, MarCCDDetector):
     det = MarCCDDet15(prefix, name='name', read_attrs=['tiff'])
     """
     # file write path
-    write_path = '/tmp/marccd/'
+    write_path = '/home/data/'
 
     # no cam subdivision
     cam = ADC(cam.MarCCDDetectorCam, '')
 
     tiff = Cpt(MarFileStoreTIFF, '', 
                 write_path_template=write_path,
-                read_path_template='/home/b_spec/data/marCCD/',
+                read_path_template='/home/data/', # same path but different fs
                 path_semantics='posix')
 
 marDet = MarCCDDet15('BL15:MARCCD:', name='marCCD', read_attrs=['tiff'])
