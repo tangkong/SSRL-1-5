@@ -55,8 +55,6 @@ class Selector(DocumentRouter):
         for key in self._exclude:
             edited['data'].pop(key, None)
             edited['timestamps'].pop(key, None)
-        print(self.emit)
-        print(edited)
         self.emit('event', edited)
     
     def stop(self, doc):
