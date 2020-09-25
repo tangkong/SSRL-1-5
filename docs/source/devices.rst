@@ -14,8 +14,8 @@ frame rates.
 Area detectors
 ==============
 
-Dexela Area Detector: ``dexDet``
---------------------------------
+Dexela Area Detector: ``dexDet`` [Currently not connected]
+----------------------------------------------------------
 The Dexela area detector requires dark field correction.  We have already 
 included a plan for this purpose. 
 
@@ -24,6 +24,19 @@ included a plan for this purpose.
     In [1]: RE( bp.count([dexDet]) ) # basic count plan
 
     In [2]: uids = RE(dark_light_plan([dexDet], shutter)) # take a dark image followed by a light image
+
+MarCCD Area Detector: ``marDet``
+--------------------------------
+The MarCCD area detector does not require any dark field correction and can be 
+used directly
+
+.. code:: ipython 
+
+    In [1]: RE( bp.count([marDet]) ) # basic count plan
+
+    In [2]: RE(mesh_circ_grid([marDet], s_stage.px, -10, 10, 4.5, 
+                                    s_stage.py, -10, 10, 4.5, 
+                                    radius=10, skip=4 ))
 
 
 More to come later?

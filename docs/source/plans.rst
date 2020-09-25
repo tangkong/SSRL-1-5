@@ -3,7 +3,7 @@ Plans
 =====
 
 A variety of plans for your use.  These are built out of Bluesky 
-`plans`_ and `plan stubs`_, and customized to be very specific to operations 
+plans_ and `plan stubs`_, and customized to be very specific to operations 
 at SSRL1-5.  If you'd like to build
 your own plans out of the existing plans, see this `tutorial section`_.
 
@@ -174,7 +174,37 @@ leveled via the following commands
 
 .. code-block:: ipython
 
-In [19]: RE(level_stage_single(lrf, s_stage.vx, s_stage.px, -50, 50))
+    In [19]: RE(level_stage_single(lrf, s_stage.vx, s_stage.px, -50, 50))
 
-In [19]: RE(level_stage_single(lrf, s_stage.vy, s_stage.py, 60, -60))
+    In [19]: RE(level_stage_single(lrf, s_stage.vy, s_stage.py, 60, -60))
 
+``mesh_grid_circ``
+------------------
+Scans points in a circular grid with given radius.  Scan bounds is defined by a 
+4 endpoints ``(s1, f1, s2, f2)``.  A measurement is taken at every point within 
+the bounds defined by these endpoints *if* that point is inside the radius.  
+
+To align the grid within the circular boundary, a sample location can be provided to 
+the ``pin`` variable.  If no ``pin`` is provied, then the current location is 
+used.  
+
+In the case where a scan has been interrupted after the first n measurements, 
+one can supply a number of measurements to skip.  
+
+The order of the motors controls how the grid is traversed. The "slowest" axis 
+comes first, and only scans between its limits once.  The second "faster" axis 
+will scan betwen its limits once for each position on the first motor.  
+This plan uses the ``blueksy.plans.grid_scan`` behavior, and one can reference 
+its more complete documentation_.
+
+.. _documentation: https://nsls-ii.github.io/bluesky/tutorial.html#scan-multiple-motors-in-a-grid
+
+.. image:: images/mesh_grid_circ_diagram.png
+  :width: 300
+  :alt: Description of bounds defining mesh_grid_circ plan
+
+.. code:: ipython
+
+    In [2]: RE(mesh_circ_grid([marDet], s_stage.px, -10, 10, 4.5, 
+                                    s_stage.py, -10, 10, 4.5, 
+                                    radius=10, pin=(1.5, 1.5), skip=4 ))
