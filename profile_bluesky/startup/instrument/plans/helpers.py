@@ -4,6 +4,7 @@ Helper plans, functions
 """
 from ..framework.initialize import db
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 __all__ = ['show_table', 'show_image', ]
