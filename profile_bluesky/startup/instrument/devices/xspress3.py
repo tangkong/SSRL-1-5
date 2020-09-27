@@ -141,10 +141,13 @@ xsp3.settings.configuration_attrs = ['acquire_period',
                         'trigger_signal']
 
 for n, d in xsp3.channels.items():
-    roi_names = ['roi{:02}'.format(j) for j in [1, 2, 3]]
+    roi_names = ['roi{:02}'.format(j) for j in [1, ]]
     d.rois.read_attrs = roi_names
     d.rois.configuration_attrs = roi_names
     for roi_n in roi_names:
         getattr(d.rois, roi_n).value_sum.kind = 'omitted'
+        getattr(d.rois, roi_n).value.kind = 'hinted'
+
+
 
 xsp3.hdf5.warmup()
