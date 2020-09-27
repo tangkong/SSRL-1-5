@@ -4,6 +4,10 @@ Helper plans, functions
 """
 from ..framework.initialize import db
 
+import numpy as np
+
+__all__ = ['show_table', 'show_image', ]
+
 def show_table(ind=-1):
     return db[ind].table()
 
