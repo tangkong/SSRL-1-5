@@ -22,7 +22,7 @@ logger.info(__file__)
 class SSRLXspress3Detector(XspressTrigger, Xspress3Detector):
     roi_data = Cpt(PluginBase, 'ROIDATA:')
     channel1 = Cpt(Xspress3Channel, 'C1_', channel_num=1, read_attrs=['rois'])
-    channel2 = Cpt(Xspress3Channel, 'C2_', channel_num=2, read_attrs=['rois'])
+    #channel2 = Cpt(Xspress3Channel, 'C2_', channel_num=2, read_attrs=['rois'])
 
     hdf5 = Cpt(Xspress3FileStore, 'HDF5:',
 			   write_path_template='/home/xspress3/data',
@@ -146,8 +146,9 @@ for n, d in xsp3.channels.items():
     d.rois.configuration_attrs = roi_names
     for roi_n in roi_names:
         getattr(d.rois, roi_n).value_sum.kind = 'omitted'
-        getattr(d.rois, roi_n).value.kind = 'hinted'
 
-
+# set up ROI hints for best effort callback
+xsp3.channel1.rois.roi01.value.kind = 'hinted'
+xsp3.channel1.rois.roi02.value.kind = 'hinted'
 
 xsp3.hdf5.warmup()
