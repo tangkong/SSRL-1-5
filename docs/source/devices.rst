@@ -111,7 +111,9 @@ Motors
 Sample Stage: ``s_stage``
 -------------------------
 
-``s_stage`` has the following components, used to control the sample setup
+``s_stage`` has the following components, used to control the sample setup.  
+These can be accessed either from the parent ``s_stage`` object or for 
+convenience by their individual names (``px``, ``py``, etc)
 
 =================================== ======================= ==================
 Component name                      Motor name              Units
@@ -127,4 +129,6 @@ Component name                      Motor name              Units
 
     In [1]: RE( bps.mv(s_stage.px, 0) ) # move stage plate x to 0
 
-    In [1]: RE( bps.mvr(s_stage.pz, -1) ) # move stage height -1 from current position
+    In [2]: RE( bps.mvr(pz, -1) ) # move stage height -1 from current position
+
+    In [3]: %movr pz -1 # Same as above, move relative stage height by -1 

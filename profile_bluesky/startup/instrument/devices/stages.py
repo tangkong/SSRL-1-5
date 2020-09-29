@@ -2,7 +2,7 @@
 stages 
 """
 
-__all__ = ['s_stage',]
+__all__ = ['s_stage', 'px', 'py', 'pz', 'th', 'vx', 'vy']
 
 from ..framework import sd
 from ..session_logs import logger
@@ -27,3 +27,13 @@ s_stage = HiTpStage('', name='s_stage')
 
 # measure stage status at beginning of every plan
 sd.baseline.append(s_stage)
+
+# convenience definitions 
+px = s_stage.px
+py = s_stage.py
+pz = s_stage.pz
+
+vx = s_stage.vx
+vy = s_stage.vy
+
+th = s_stage.th
