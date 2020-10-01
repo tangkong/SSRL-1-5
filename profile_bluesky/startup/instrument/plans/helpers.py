@@ -19,7 +19,7 @@ def show_image(ind=-1, data_pt=1, img_key='marCCD_image', max_val=60000):
     
     arr = db[ind].table(fill=True)[img_key][data_pt][0]
     vmax = np.mean(arr)+3*np.std(arr)
-    n_max = np.sum(arr>nax_val)
+    n_max = np.sum(arr>max_val)
     
     axes[0].imshow(arr, vmax=vmax)
     axes[0].text(100,100, f'{n_max} pixels > {max_val}', 
