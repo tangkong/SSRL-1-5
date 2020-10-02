@@ -43,7 +43,7 @@ def show_image(ind=-1, data_pt=1, img_key='marCCD_image', max_val=60000):
                     backgroundcolor='w')
     
     scan_no = db[ind].start['scan_id']
-    axes[0].title(f'{img_key}, Scan #{scan_no}, data point: {data_pt}')
+    axes[0].set_title(f'{img_key}, Scan #{scan_no}, data point: {data_pt}')
 
     sl = arr[:, 900:1100]
     axes[1].plot(sl.sum(axis=1), list(range(2048)))
