@@ -22,7 +22,7 @@ hands.pop("XSP3")
 
 def csv_factory(name, start_doc):
     serializer = sc.Serializer( 
-        '/home/b_spec/export/csv/', file_prefix='Scan{start[scan_id]}-' )
+        '/bluedata/b_mehta/export/csv/', file_prefix='Scan{start[scan_id]}-' )
 
     def cb(name, doc):
         f(name,doc)
@@ -72,7 +72,7 @@ class Selector(DocumentRouter):
 
 def tiff_factory(name, start_doc):
     serializer = st.Serializer( 
-        '/home/b_spec/export/tiff/', file_prefix='Scan{start[scan_id]}-')
+        '/bluedata/b_mehta/export/tiff/', file_prefix='Scan{start[scan_id]}-')
 
     f = Filler(hands)
     #serializer('start', start_doc)
@@ -95,7 +95,7 @@ callback_db['tiff_rr'] = RE.subscribe(tiff_rr)
 
 def meta_factory(name, start_doc):
     serializer = sj.Serializer( 
-        '/home/b_spec/export/meta/', file_prefix='Scan{start[scan_id]}-' )
+        '/bluedata/b_mehta/export/meta/', file_prefix='Scan{start[scan_id]}-' )
 
     def cb(name, doc):
         serializer(name, doc) 
