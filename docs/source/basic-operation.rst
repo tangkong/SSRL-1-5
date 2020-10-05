@@ -230,6 +230,49 @@ demonstrated below:
 For those familiar with python data analysis, the ``db[-1].table()`` returns a 
 familiar ``pandas.DataFrame`` object.  
 
+Searching the DataBroker:
+-------------------------
+One of the key advantages of the Bluesky data collection system is the ability
+to search data quickly via saved metadata.  Again for a more thorough discussion,
+look `here <https://blueskyproject.io/databroker/v1/tutorial.html#searching>`__.
+
+To search DataBroker based on metadata, use parentheses:
+
+.. code:: python
+
+    # Search by plan name.
+    headers = db(plan_name='scan')
+
+    # Search for runs involving a motor with the name 'eta'.
+    headers = db(motor='eta')
+
+    # Search for runs operated by a given user---assuming this metadata was
+    # recorded in the first place!
+    headers = db(operator='Dan')
+
+    # Search by time range. (These keywords have a special meaning.)
+    headers = db(since='2015-03-05', until='2015-03-10')
+
+To search DataBroker based on relative indexing or unique id, you can use square
+brackets:
+
+.. code:: python
+
+    # Get the most recent run.
+    header = db[-1]
+
+    # Get the fifth most recent run.
+    header = db[-5]
+
+    # Get a list of all five most recent runs, using Python slicing syntax.
+    headers = db[-5:]
+
+    # Get a run whose unique ID ("RunStart uid") begins with 'x39do5'.
+    header = db['x39do5']
+
+    # Get a run whose integer scan_id is 42. Note that this might not be
+    # unique. In the event of duplicates, the most recent match is returned.
+    header = db[42]
 
 Managing Metadata 
 =================
