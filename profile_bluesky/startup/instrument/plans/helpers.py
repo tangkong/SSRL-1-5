@@ -68,8 +68,6 @@ def show_scan(ind=-1, dep_subkey='channel1_rois_', indep_subkey='s_stage'):
     dep_key = dep_keylist[0]
     indep_keylist = df.columns[[indep_subkey in x for x in df.columns]]
     indep_key = indep_keylist[0]
-
-    if not (len(dep_key) > 0) or !():
     
     try:
         fig, ax = plt.subplots()
