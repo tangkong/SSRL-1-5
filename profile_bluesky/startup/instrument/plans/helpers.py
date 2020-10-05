@@ -7,7 +7,7 @@ from ..framework.initialize import db
 import matplotlib.pyplot as plt
 import numpy as np
 
-__all__ = ['show_table', 'show_image', ]
+__all__ = ['show_table', 'show_image', 'show_scan']
 
 def show_table(ind=-1):
     return db[ind].table()
@@ -49,7 +49,7 @@ def show_image(ind=-1, data_pt=1, img_key='marCCD_image', max_val=60000):
     axes[1].plot(sl.sum(axis=1), list(range(2048)))
     plt.tight_layout()
 
-def show_scan(ind=-1, dep_subkey='channel1_rois_roi01', indep_subkey='s_stage'):
+def show_scan(ind=-1, dep_subkey='channel1_rois_', indep_subkey='s_stage'):
     """show_scan attempts to plot tabular data.  Looks for dependent and 
     independent variables based on provided subkeys
 
@@ -61,6 +61,7 @@ def show_scan(ind=-1, dep_subkey='channel1_rois_roi01', indep_subkey='s_stage'):
     :type indep_subkey: str, optional
     """
     df = db[ind].table()
+    scan_no = db[ind].start['scan_id']
 
     # grab relevant keys
     dep_keylist = df.columns[[dep_subkey in x for x in df.columns]]
@@ -68,8 +69,15 @@ def show_scan(ind=-1, dep_subkey='channel1_rois_roi01', indep_subkey='s_stage'):
     indep_keylist = df.columns[[indep_subkey in x for x in df.columns]]
     indep_key = indep_keylist[0]
 
+    if not (len(dep_key) > 0) or !():
+    
     try:
-        df.plot(indep_key, dep_key, marker='o', figsize=(8,5))
+        fig, ax = plt.subplots()
+        ax.set_title(f'Scan #{scan_no}'')
+        
+        for key in indep_keylist:
+            ax.plot(indep_key, dep_key, marker='o', figsize=(8,5))
+
     except KeyError:
         print(e)
         return
