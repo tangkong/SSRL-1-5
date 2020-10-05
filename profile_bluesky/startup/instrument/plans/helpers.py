@@ -71,7 +71,7 @@ def show_scan(ind=-1, dep_subkey='channel1_rois_', indep_subkey='s_stage'):
     
     try:
         fig, ax = plt.subplots()
-        ax.set_title(f'Scan #{scan_no}'')
+        ax.set_title(f'Scan #{scan_no}')
         
         for key in indep_keylist:
             ax.plot(indep_key, dep_key, marker='o', figsize=(8,5))
