@@ -74,7 +74,7 @@ def show_scan(ind=-1, dep_subkey='channel1_rois_', indep_subkey='s_stage'):
         ax.set_title(f'Scan #{scan_no}')
         
         for key in indep_keylist:
-            ax.plot(indep_key, dep_key, marker='o', figsize=(8,5))
+            df.plot(indep_key, dep_key, marker='o', figsize=(8,5))
 
     except KeyError:
         print(e)
