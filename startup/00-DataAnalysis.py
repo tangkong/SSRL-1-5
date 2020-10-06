@@ -20,6 +20,7 @@ def read_tiff(fp):
 def read_h5(fp)
     ''' return h5 file.  Read with keys'''
 
+
 # convenience functions 
 def show_table(ind=-1):
     return db[ind].table()
@@ -55,13 +56,13 @@ def show_image(ind=-1, data_pt=1, img_key='marCCD_image', max_val=60000):
                     backgroundcolor='w')
     
     scan_no = db[ind].start['scan_id']
-    axes[0].title(f'{img_key}, Scan #{scan_no}, data point: {data_pt}')
+    axes[0].set_title(f'{img_key}, Scan #{scan_no}, data point: {data_pt}')
 
     sl = arr[:, 900:1100]
     axes[1].plot(sl.sum(axis=1), list(range(2048)))
     plt.tight_layout()
 
-def show_scan(ind=-1, dep_subkey='channel1_rois_roi01', indep_subkey='s_stage'):
+def show_scan(ind=-1, dep_subkey='channel1_rois_', indep_subkey='s_stage'):
     """show_scan attempts to plot tabular data.  Looks for dependent and 
     independent variables based on provided subkeys
 
@@ -73,15 +74,21 @@ def show_scan(ind=-1, dep_subkey='channel1_rois_roi01', indep_subkey='s_stage'):
     :type indep_subkey: str, optional
     """
     df = db[ind].table()
+    scan_no = db[ind].start['scan_id']
 
     # grab relevant keys
     dep_keylist = df.columns[[dep_subkey in x for x in df.columns]]
     dep_key = dep_keylist[0]
     indep_keylist = df.columns[[indep_subkey in x for x in df.columns]]
     indep_key = indep_keylist[0]
-
+    
     try:
-        df.plot(indep_key, dep_key, marker='o', figsize=(8,5))
+        fig, ax = plt.subplots()
+        ax.set_title(f'Scan #{scan_no}')
+        
+        for key in indep_keylist:
+            df.plot(indep_key, dep_key, marker='o', figsize=(8,5))
+
     except KeyError:
         print(e)
         return
