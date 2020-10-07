@@ -20,12 +20,13 @@ __all__ = ['loc_177_scan', 'dark_light_plan', 'exp_time_plan', 'gather_plot_ims'
 
 # scan sample locations
 @inject_md_decorator({'macro_name': 'loc_177_scan'})
-def loc_177_scan(dets):
+def loc_177_scan(dets, skip=0):
     """loc_177_scan scans across a library with 177 points, measuring each 
     detector in dets
 
     :param dets: detectors to be 
     :type dets: list
+    :param skip: number of data points to skip
     :yield: things from list_scan
     :rtype: Msg
     """
@@ -38,8 +39,36 @@ def loc_177_scan(dets):
     if xsp3 in dets:
         yield from bps.mv(xsp3.total_points, 177)
 
+    # inject logic via per_step 
+    class stateful_per_step:
+        
+        def __init__(self, skip):
+            self.skip = skip
+            self.cnt = 0
+            print(self.skip, self.cnt)
+
+        def __call__(self, detectors, step, pos_cache):
+            """
+            has signature of bps.one_and_step, but with added logic of skipping 
+            a point if it is outside of provided radius
+            """
+            vals = list(step.values())
+            pos_rad = sum([(x-y)**2 for x, y in zip(vals, center)]) # calculate radius^2
+            pt_past_radius = (pos_rad > radius*radius)
+            if pt_past_radius: # condition 
+                pass
+            else: # run normal scan
+                if self.cnt < self.skip: # if not enough skipped
+                    self.cnt += 1
+                    pass
+                else:
+                    yield from bps.one_nd_step(detectors, step, pos_cache)
+
+    per_stepper = stateful_per_step(skip)
+
     yield from bp.list_scan(dets, s_stage.px, list(loc177[0]), 
-                                s_stage.py, list(loc177[1]))
+                                s_stage.py, list(loc177[1]), 
+                                per_step=per_stepper)
 
 
 # collection plans
