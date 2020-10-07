@@ -20,7 +20,7 @@ __all__ = ['loc_177_scan', 'dark_light_plan', 'exp_time_plan', 'gather_plot_ims'
 
 # scan sample locations
 @inject_md_decorator({'macro_name': 'loc_177_scan'})
-def loc_177_scan(dets, skip=0):
+def loc_177_scan(dets, skip=0, md={}):
     """loc_177_scan scans across a library with 177 points, measuring each 
     detector in dets
 
@@ -62,7 +62,7 @@ def loc_177_scan(dets, skip=0):
 
     yield from bp.list_scan(dets, s_stage.px, list(loc177[0]), 
                                 s_stage.py, list(loc177[1]), 
-                                per_step=per_stepper)
+                                per_step=per_stepper, md=md)
 
 
 # collection plans
