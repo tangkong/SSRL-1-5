@@ -52,11 +52,6 @@ def loc_177_scan(dets, skip=0):
             has signature of bps.one_and_step, but with added logic of skipping 
             a point if it is outside of provided radius
             """
-            vals = list(step.values())
-            pos_rad = sum([(x-y)**2 for x, y in zip(vals, center)]) # calculate radius^2
-            pt_past_radius = (pos_rad > radius*radius)
-            if pt_past_radius: # condition 
-                pass
             else: # run normal scan
                 if self.cnt < self.skip: # if not enough skipped
                     self.cnt += 1
