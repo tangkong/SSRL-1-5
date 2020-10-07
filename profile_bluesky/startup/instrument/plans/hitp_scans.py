@@ -45,19 +45,18 @@ def loc_177_scan(dets, skip=0):
         def __init__(self, skip):
             self.skip = skip
             self.cnt = 0
-            print(self.skip, self.cnt)
+            #print(self.skip, self.cnt)
 
         def __call__(self, detectors, step, pos_cache):
             """
             has signature of bps.one_and_step, but with added logic of skipping 
             a point if it is outside of provided radius
             """
-            else: # run normal scan
-                if self.cnt < self.skip: # if not enough skipped
-                    self.cnt += 1
-                    pass
-                else:
-                    yield from bps.one_nd_step(detectors, step, pos_cache)
+            if self.cnt < self.skip: # if not enough skipped
+                self.cnt += 1
+                pass
+            else:
+                yield from bps.one_nd_step(detectors, step, pos_cache)
 
     per_stepper = stateful_per_step(skip)
 
