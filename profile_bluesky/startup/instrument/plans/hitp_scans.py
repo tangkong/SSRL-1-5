@@ -15,7 +15,7 @@ from bluesky.preprocessors import inject_md_decorator
 import bluesky.plan_stubs as bps
 from ssrltools.plans import meshcirc, nscan, level_stage_single
 
-__all__ = ['loc_177_scan', 'dark_light_plan', 'exp_time_plan', 'gather_plot_ims',
+__all__ = ['loc_177_scan', 'loc_cust_scan', 'dark_light_plan', 'exp_time_plan', 'gather_plot_ims',
             'plot_dark_corrected', 'multi_acquire_plan', 'level_stage_single', ]
 
 # scan sample locations
@@ -64,6 +64,53 @@ def loc_177_scan(dets, skip=0, md={}):
                                 s_stage.py, list(loc177[1]), 
                                 per_step=per_stepper, md=md)
 
+
+@inject_md_decorator({'macro_name': 'loc_cust_scan'})
+def loc_cust_scan(dets, cust_locs, skip=0, md={}):
+    """loc_cust_scan scans across a library with 177 points, measuring each 
+    detector in dets
+
+    :param dets: detectors to be 
+    :type dets: list
+    :param cust_locs: detectors to be 
+    :type dets: list
+    :param skip: number of data points to skip
+    :yield: things from list_scan
+    :rtype: Msg
+    """
+    # format locations and stage motors
+    if I0 not in dets:
+        dets.append(I0)
+    if I1 not in dets:
+        dets.append(I1)
+
+    if xsp3 in dets:
+        yield from bps.mv(xsp3.total_points, len(cust_locs[0]))
+
+    # inject logic via per_step 
+    class stateful_per_step:
+        
+        def __init__(self, skip):
+            self.skip = skip
+            self.cnt = 0
+            #print(self.skip, self.cnt)
+
+        def __call__(self, detectors, step, pos_cache):
+            """
+            has signature of bps.one_and_step, but with added logic of skipping 
+            a point if it is outside of provided radius
+            """
+            if self.cnt < self.skip: # if not enough skipped
+                self.cnt += 1
+                pass
+            else:
+                yield from bps.one_nd_step(detectors, step, pos_cache)
+
+    per_stepper = stateful_per_step(skip)
+
+    yield from bp.list_scan(dets, s_stage.px, list(cust_locs[0]), 
+                                s_stage.py, list(cust_locs[1]), 
+                                per_step=per_stepper, md=md)
 
 # collection plans
 # Basic dark > light collection plan
