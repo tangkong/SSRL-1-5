@@ -79,3 +79,35 @@ def show_scan(ind=-1, dep_subkey='channel1_rois_', indep_subkey='s_stage'):
     except KeyError:
         print(e)
         return
+
+
+def avg_images(ind=-1,img_key='marCCD_image'):
+    ''' Tries to average images inside a run.  
+    Currently assumes MarCCD format 
+    returns the '''
+
+    df = db[ind].table(fill=True)
+
+    #gather images
+    arr = []
+    for i in range(len(df)):
+        arr.append(df[img_key][i+1][0])
+
+    avg_arr = np.sum(arr, axis=0) / len(arr)
+
+    # plot
+    fig, axes = plt.subplots(1,2, sharey=True, figsize=(7, 4.9),
+                            gridspec_kw={'width_ratios': [3,1]})
+    
+    vmax = np.mean(avg_arr)+3*np.std(avg_arr)
+
+    axes[0].imshow(avg_arr, vmax=vmax)
+    
+    scan_no = db[ind].start['scan_id']
+    axes[0].set_title(f'Scan #{scan_no}, averaged over {len(arr)} images')
+
+    sl = avg_arr[:, 900:1100]
+    axes[1].plot(sl.sum(axis=1), list(range(2048)))
+    plt.tight_layout()
+
+    return avg_arr
