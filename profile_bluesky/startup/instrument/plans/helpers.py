@@ -7,7 +7,7 @@ from ..framework.initialize import db
 import matplotlib.pyplot as plt
 import numpy as np
 
-__all__ = ['show_table', 'show_image', 'show_scan']
+__all__ = ['show_table', 'show_image', 'show_scan', 'avg_images']
 
 def show_table(ind=-1):
     return db[ind].table()
@@ -82,9 +82,23 @@ def show_scan(ind=-1, dep_subkey='channel1_rois_', indep_subkey='s_stage'):
 
 
 def avg_images(ind=-1,img_key='marCCD_image'):
+    """avg_images [summary]
+
+    [extended_summary]
+
+    :param ind: Run index, defaults to -1.  
+                If negative integer, counts backward from most recent run (-1=most recent, -2=second most recent)
+                If positive integer, matches 'scan_id'
+                If string, interprets as the start of a UID (ex: '8ee443d')
+    :type ind: int, optional
+    :param img_key: [description], defaults to 'marCCD_image'
+    :type img_key: str, optional
+    :return: [description]
+    :rtype: [type]
+    """
     ''' Tries to average images inside a run.  
     Currently assumes MarCCD format 
-    returns the '''
+    returns the array after.'''
 
     df = db[ind].table(fill=True)
 
