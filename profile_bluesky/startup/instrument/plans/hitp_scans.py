@@ -5,7 +5,7 @@ scans for high throughput stage
 from .locs import loc177
 from ..devices.stages import s_stage
 from ..devices.xspress3 import xsp3
-from ..devices.misc_devices import shutter as fs, lrf, I0, I1
+from ..devices.misc_devices import shutter as fs, lrf, I0, I1, table_busy, table_trigger
 from ..framework import db
 
 import time 
@@ -72,8 +72,9 @@ def loc_cust_scan(dets, cust_locs, skip=0, md={}):
 
     :param dets: detectors to be 
     :type dets: list
-    :param cust_locs: detectors to be 
-    :type dets: list
+    :param cust_locs: (2, N) array denoting N locations to scan.  First list 
+                      will direct px and the second will direct py 
+    :type cust_locs: list
     :param skip: number of data points to skip
     :yield: things from list_scan
     :rtype: Msg
@@ -297,3 +298,23 @@ def level_s_stage():
     # level on x axis
     yield from bps.mv(s_stage.px, 0, s_stage.py, 0)
     yield from level_stage_single(lrf, s_stage.vy, s_stage.py, 60, -60)
+
+
+@inject_md_decorator({'marco_name': 'tablev_scan'})
+def tablev_scan():
+    '''
+    send signal to DO01 to trigger tablev_scan
+
+    '''
+    yield from bps.mv(table_trigger, 1) # start tablev_scan
+    yield from bps.sleep(1)
+    
+    # sleep until we see the busy signal go high
+    cnt = 0
+    while (table_busy.read()[table_busy.name]['value'] < 0.5) and cnt < 100: 
+        print('waiting for busy signal...') 
+        yield from bps.sleep(5)
+        cnt += 1 
+
+    # Turn off trigger signal
+    yield from bps.mv(table_trigger, 0)
