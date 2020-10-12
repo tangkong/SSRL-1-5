@@ -304,17 +304,16 @@ def level_s_stage():
 def tablev_scan():
     '''
     send signal to DO01 to trigger tablev_scan
-
     '''
-    yield from bps.mv(table_trigger, 1) # start tablev_scan
+    yield from bps.mv(table_trigger, 0) # start tablev_scan
     yield from bps.sleep(1)
     
     # sleep until we see the busy signal go high
     cnt = 0
     while (table_busy.read()[table_busy.name]['value'] < 0.5) and cnt < 100: 
         print('waiting for busy signal...') 
-        yield from bps.sleep(5)
+        yield from bps.sleep(2)
         cnt += 1 
 
     # Turn off trigger signal
-    yield from bps.mv(table_trigger, 0)
+    yield from bps.mv(table_trigger, 1)
