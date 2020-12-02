@@ -1,0 +1,28 @@
+from ophyd import SingleTrigger, Component as Cpt, ADComponent as ADC
+
+from ophyd.areadetector.detectors import PilatusDetector
+from ssrltools.devices.areadetectors import MarFileStoreTIFF
+from ophyd.areadetector import cam
+
+from ..session_logs import logger
+logger.info(__file__)
+
+__all__ = ['marDet', ]
+
+
+class PilDet15(SingleTrigger, PilatusDetector):
+    """MarCCDDet15 
+    det = MarCCDDet15(prefix, name='name', read_attrs=['tiff'])
+    """
+    # file write path
+    write_path = '/home/data/'
+
+    # no cam subdivision
+    cam = ADC(cam.PilatusDetectorCam, '')
+
+    tiff = Cpt(MarFileStoreTIFF, '', # Same slightly different structure as Mar
+                write_path_template=write_path,
+                read_path_template='/home/data/', # same path but different fs
+                path_semantics='posix') #, root='/home/data/')
+
+pilDet = PilDet15('BL15:PILATUS300K:', name='pilatus300k', read_attrs=['tiff'])
