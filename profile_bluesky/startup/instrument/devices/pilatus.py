@@ -7,12 +7,12 @@ from ophyd.areadetector import cam
 from ..session_logs import logger
 logger.info(__file__)
 
-__all__ = ['marDet', ]
+__all__ = ['pilDet', ]
 
 
 class PilDet15(SingleTrigger, PilatusDetector):
-    """MarCCDDet15 
-    det = MarCCDDet15(prefix, name='name', read_attrs=['tiff'])
+    """PilDet15 
+    det = PilDet(prefix, name='name', read_attrs=['tiff'])
     """
     # file write path
     write_path = '/home/data/'
@@ -25,4 +25,5 @@ class PilDet15(SingleTrigger, PilatusDetector):
                 read_path_template='/home/data/', # same path but different fs
                 path_semantics='posix') #, root='/home/data/')
 
+    # image = ???  Array data PV?
 pilDet = PilDet15('BL15:PILATUS300K:', name='pilatus300k', read_attrs=['tiff'])
