@@ -26,8 +26,16 @@ def show_image(ind=-1, data_pt=1, img_key='marCCD_image', max_val=60000):
     :type max_val: int, optional
     """
     # Try databroker v2 maybe, at some point
+    if img_key in ['pilatus300k_image']:
+        horizontal=True
+    else:
+        horizontal=False
+
     try:
-        arr = db[ind].table(fill=True)[img_key][data_pt][0]
+        hdr = db[ind].table(fill=True)
+        arr = hdr[img_key][data_pt][0]
+        if horizontal:
+            arr = np.rot90(arr, -1)
     except KeyError:
         print(f'{img_key} not found in run: {ind}, data point: {data_pt}')
         return
@@ -45,8 +53,10 @@ def show_image(ind=-1, data_pt=1, img_key='marCCD_image', max_val=60000):
     scan_no = db[ind].start['scan_id']
     axes[0].set_title(f'{img_key}, Scan #{scan_no}, data point: {data_pt}')
 
-    sl = arr[:, 900:1100]
-    axes[1].plot(sl.sum(axis=1), list(range(2048)))
+    height, width = arr.shape
+        
+    sl = arr[:, int(0.45*width):int(0.55*width)]
+    axes[1].plot(sl.sum(axis=1), list(range(height)))
     plt.tight_layout()
 
 def show_scan(ind=-1, dep_subkey='channel1_rois_', indep_subkey='s_stage'):
