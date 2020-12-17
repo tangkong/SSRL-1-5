@@ -12,7 +12,7 @@ __all__ = ['show_table', 'show_image', 'show_scan', 'avg_images']
 def show_table(ind=-1):
     return db[ind].table()
 
-def show_image(ind=-1, data_pt=1, img_key='marCCD_image', max_val=60000):
+def show_image(ind=-1, data_pt=1, img_key='pilatus300k_image', max_val=500000):
     """show_image attempts to plot area detector data, plot a vertical slice, 
     and calculates number of pixels above the provided threshold.  
 
