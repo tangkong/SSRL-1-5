@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Beamline Startup, EPICS and Bluesky &mdash; SSRL-1-5 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Basic Operation in Bluesky" href="basic-operation.html" />
+    <link rel="prev" title="Welcome to SSRL-1-5’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> SSRL-1-5
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Beamline Startup, EPICS and Bluesky</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">EPICS:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ims-motors-stage-px-py-pz">IMS motors (stage px, py, pz)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pico-motors-stage-vx-vy">PICO motors (stage vx, vy)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#galil-rio-laser-range-finder-i0-i1-shutter">Galil RIO (laser range finder, I0, I1, shutter)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Bluesky:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basic-operation.html">Basic Operation in Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devices.html">Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plans.html">Plans</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SSRL-1-5</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Beamline Startup, EPICS and Bluesky</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/beamline-startup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="beamline-startup-epics-and-bluesky">
+<h1>Beamline Startup, EPICS and Bluesky<a class="headerlink" href="#beamline-startup-epics-and-bluesky" title="Permalink to this headline">¶</a></h1>
+<p>Currently the beamline devices are all controlled via <a class="reference external" href="https://epics.anl.gov/">EPICS</a>, and the data
+collection orchestrated via the <a class="reference external" href="https://blueskyproject.io/">Bluesky</a> Ecosystem.  Each of these systems must
+be started to render the beamline operational.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This system is still under development at SSRL.  Many tasks may seem
+tedious, but there is significant room for streamlining the process.  Please
+view this list of startup items in that lens, and be patient.</p>
+</div>
+<p>To start up EPICS, the IOCs (Input-Output Controllers) must be started.  Each
+set of devices has its own IOC</p>
+<div class="section" id="id1">
+<h2>EPICS:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>These IOCs will eventually be bundled into a single command, but for now each
+must be started individually.  IOC’s are currently housed on
+blueepicslx.slac.stanford.edu.  The patten is the same, navigate to the correct
+folder and run the <code class="docutils literal notranslate"><span class="pre">st.cmd</span></code> script file</p>
+<div class="section" id="ims-motors-stage-px-py-pz">
+<h3>IMS motors (stage px, py, pz)<a class="headerlink" href="#ims-motors-stage-px-py-pz" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(collect_2020q2)</span> <span class="gp">[b_campen@blueepicslx ~]$</span> <span class="nb">cd</span> /opt/EPICS/3.14/iocs/motor/iocBoot/ioc-ims/
+<span class="gp gp-VirtualEnv">(collect_2020q2)</span> <span class="gp">[b_campen@blueepicslx ~]$</span> ./st.cmd
+</pre></div>
+</div>
+</div>
+<div class="section" id="pico-motors-stage-vx-vy">
+<h3>PICO motors (stage vx, vy)<a class="headerlink" href="#pico-motors-stage-vx-vy" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(collect_2020q2)</span> <span class="gp">[b_campen@blueepicslx ~]$</span> <span class="nb">cd</span> /opt/EPICS/3.14/iocs/motor/iocBoot/ioc-picoPMNC87xx/
+<span class="gp gp-VirtualEnv">(collect_2020q2)</span> <span class="gp">[b_campen@blueepicslx ~]$</span> ./st.cmd
+</pre></div>
+</div>
+</div>
+<div class="section" id="galil-rio-laser-range-finder-i0-i1-shutter">
+<h3>Galil RIO (laser range finder, I0, I1, shutter)<a class="headerlink" href="#galil-rio-laser-range-finder-i0-i1-shutter" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(collect_2020q2)</span> <span class="gp">[b_campen@blueepicslx ~]$</span> <span class="nb">cd</span> /opt/EPICS/3.14/iocs/galil_rio/iocBoot/ioc-galil-rio/
+<span class="gp gp-VirtualEnv">(collect_2020q2)</span> <span class="gp">[b_campen@blueepicslx ~]$</span> ./st.cmd
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Bluesky:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Bluesky runs in an interactive ipython console, which can be started with the
+alias <code class="docutils literal notranslate"><span class="pre">bluesky</span></code> on bluedevlx.slac.stanford.edu:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(collect)</span> <span class="gp">[b_spec@bluedevlx ~]$</span> bluesky
+</pre></div>
+</div>
+<p>This will run a series of startup scripts which, among other things, start the
+RunEngine and connect to the database.  If any modifications need to be made to
+these files, they are located in <code class="docutils literal notranslate"><span class="pre">~/ipystartup</span></code></p>
+<p>Before editing these files, please contact Robert Tang-Kong (roberttk at slac).</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basic-operation.html" class="btn btn-neutral float-right" title="Basic Operation in Bluesky" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to SSRL-1-5’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, roberttk
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
