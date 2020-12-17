@@ -42,13 +42,14 @@ def max_pixel_count(dets, sat_count=60000, md={}):
     # run standard count plan with new acquire times
     yield from bp.count(dets, md=md)
 
-def filter_opt_count(det, sat_count=60000, md={}):
+def filter_opt_count(det, target_count=100000, md={}):
     """ filter_opt_count
     OPtimize counts using filters 
     Assumes mu=0.2, x = [0.89, 2.52, 3.83, 10.87]
     I = I_o \exp(-mu*x) 
 
     Only takes one detector, since we are optimizing based on it alone
+    target is mean+2std
     """
     dc = DocumentCache()
     token = yield from bps.subscribe('all', dc)
@@ -56,30 +57,33 @@ def filter_opt_count(det, sat_count=60000, md={}):
 
     md = {}
     
-    yield from open_run(md=md)    
+    yield from bps.open_run(md=md)    
     # BlueskyRun object allows interaction with documents similar to db.v2, 
     # but documents are in memory
     run = BlueskyRun(dc)
-    yield from bps.trigger_and_read([det])
+    yield from bps.trigger_and_read([det, filter1, filter2, filter3, filter4])
 
     data = run.primary.read()['pilatus300k_image']
-    curr_counts = data[-1].max().valuese.item() # xarray.DataArray methods
-    
+    mean = data[-1].mean().values.item() # xarray.DataArray methods
+    std = data[-1].std().values.item() # xarray.DataArray methods
+    curr_counts = mean + 2*std
+
+
     # gather filter information and solve 
     filter_status = [int(filter1.get()/5), int(filter2.get()/5), 
                         int(filter3.get()/5), int(filter4.get()/5)]
     print(filter_status)
     filter_status = [not e for e in filter_status]
-    new_filters = solve_filter_setup(filter_status, curr_counts, sat_count)
+    new_filters = solve_filter_setup(filter_status, curr_counts, target_count)
     # invert again to reflect filter status
     new_filters = [not e for e in new_filters]
     print(new_filters)
-    # set new filters and read 
-    yield from bps.mv(filter1, new_filters[0]*4.9)
-    yield from bps.mv(filter2, new_filters[1]*4.9)
-    yield from bps.mv(filter3, new_filters[2]*4.9)
-    yield from bps.mv(filter4, new_filters[3]*4.9)
-
+    # set new filters and read.  For some reason hangs on bps.mv when going high
+    filter1.put(new_filters[0]*4.9)
+    filter2.put(new_filters[1]*4.9)
+    filter3.put(new_filters[2]*4.9)
+    filter4.put(new_filters[3]*4.9)
+    
     yield from bp.trigger_and_read([det, filter1, filter2, filter3, filter4])
 
     # close out run

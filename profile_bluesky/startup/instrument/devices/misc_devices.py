@@ -2,7 +2,7 @@
 Miscellaneous devices
 """
 __all__ = ['shutter', 'I1', 'I0', 'lrf', 'table_trigger', 'table_busy',
-            'filter1', 'filter4']
+            'filter1', 'filter2', 'filter3', 'filter4']
 
 from ophyd import EpicsSignalRO, EpicsSignal
 

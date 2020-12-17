@@ -15,14 +15,14 @@ class PilDet15(SingleTrigger, PilatusDetector):
     det = PilDet(prefix, name='name', read_attrs=['tiff'])
     """
     # file write path
-    write_path = '/home/data/'
+    write_path = '/home/det/images/epics_tst/'
 
     # no cam subdivision
     cam = ADC(cam.PilatusDetectorCam, '')
 
     tiff = Cpt(MarFileStoreTIFF, '', # Same slightly different structure as Mar
                 write_path_template=write_path,
-                read_path_template='/home/data/', # same path but different fs
+                read_path_template='/home/det/images/epics_tst/', # same path but different fs
                 path_semantics='posix') #, root='/home/data/')
 
     # image = ???  Array data PV?

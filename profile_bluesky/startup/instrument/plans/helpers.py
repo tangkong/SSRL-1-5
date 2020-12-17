@@ -135,3 +135,14 @@ def avg_images(ind=-1,img_key='marCCD_image'):
     plt.tight_layout()
 
     return avg_arr
+
+def filters(new_vals=None):
+    if new_vals:
+        filter1.put(new_vals[0]*4.9)
+        filter2.put(new_vals[1]*4.9)
+        filter3.put(new_vals[2]*4.9)
+        filter4.put(new_vals[3]*4.9)
+    print(f'filter1: {filter1.get():.1f}')
+    print(f'filter2: {filter2.get():.1f}')
+    print(f'filter3: {filter3.get():.1f}')
+    print(f'filter4: {filter4.get():.1f}')
