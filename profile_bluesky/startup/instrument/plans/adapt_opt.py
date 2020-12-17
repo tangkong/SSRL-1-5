@@ -11,7 +11,13 @@ from bluesky_live.bluesky_run import BlueskyRun, DocumentCache
 from ..devices.misc_devices import filter1, filter2, filter3, filter4
 
 
-__all__ = ['filter_opt_count', 'solve_filter_setup',]
+__all__ = ['filter_opt_count', 'solve_filter_setup','filter_thicks', 'filter_hist']
+
+# dataframe to record intensity and filter information.  
+filter_hist = pd.DataFrame(columns=['time','filter_i','filter_f','I_i', 'I_f', 
+                                    'I_f/I_i', 'mu', 'signal'])
+
+filter_thicks = [0.89, 2.52, 3.83, 10.87]
 
 def max_pixel_count(dets, sat_count=60000, md={}):
     """max_pixel_count 
@@ -119,11 +125,6 @@ def int_to_bool_list(num):
     bin_string = format(num, '04b')
     return [x=='1' for x in bin_string[::-1]]
 
-# dataframe to record intensity and filter information.  
-filter_hist = pd.DataFrame(columns=['time','filter_i','filter_f','I_i', 'I_f', 
-                                    'I_f/I_i', 'mu', 'signal'])
-
-filter_thicks = [0.89, 2.52, 3.83, 10.87]
 
 def opt_filters():
     """
