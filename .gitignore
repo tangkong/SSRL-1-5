@@ -5,6 +5,8 @@ __pycache__/
 *.egg
 
 .logs/
-.metadata/
+.metadata.md/
 
 docs/source/_build/
+happi/
+startup/
