@@ -70,11 +70,13 @@ If taking multiple acquisitions in one run, we must make sure the ``xsp3.total_p
 variable matches the number of acquisitions to be taken.  This ensures that all MCA's 
 in one run will be placed in a single h5 file.  Bluesky and Databroker assume 
 this behavior when accessing saved data.  **We have done our best to create plans 
-that cover this use case**, but if needed this value can be adjusted manually.
+that cover this use case**, but if needed this value can be adjusted manually.  
+Taking a single acquisition with ``bp.count`` requires you to reset 
+``xsp3.total_points`` to 1. 
 
 .. code:: ipython
 
-    In [1]: RE(bps.mv(xsp3.total_points, 5))
+    In [1]: RE(bps.mv(xsp3.total_points, 5)) 
 
     In [2]: RE(bp.scan([xsp3], motor, -1, 1, 5))
 
@@ -104,6 +106,8 @@ that cover this use case**, but if needed this value can be adjusted manually.
 
     [5 rows x 11 columns]
 
+    In [4]: # A more consolidated command
+    ... num=60; xsp3.total_points.put(num); RE(bp.rel_scan([xsp3], px, -40,40, num=num)
 
 Motors
 ======

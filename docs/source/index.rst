@@ -17,13 +17,21 @@ Index:
    :caption: User Documentation
    :maxdepth: 1
 
-   beamline-startup
    basic-operation
    devices
    plans
-
+   faq
+   
 .. toctree::
    :caption: Examples
    :maxdepth: 1
 
    data-collection
+
+.. toctree::
+   :caption: Admin Documentation
+   :maxdepth: 1
+
+   beamline-startup_hardware
+   beamline-startup_software
+   device-config

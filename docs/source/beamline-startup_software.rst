@@ -1,5 +1,5 @@
 ===================================
-Beamline Startup, EPICS and Bluesky
+Beamline Startup: EPICS and Bluesky
 ===================================
 
 Currently the beamline devices are all controlled via EPICS_, and the data 
@@ -45,6 +45,27 @@ Galil RIO (laser range finder, I0, I1, shutter)
     (collect_2020q2) [b_campen@blueepicslx ~]$ ./st.cmd
 
 
+Profile Configuration:
+======================
+
+Detector Change
+---------------
+From Bluesky's point of view, a device is initialized when its constructor is 
+called.  This is done when the device configuration file is imported.  Thus, to 
+activate a device, simply add it to the import list in 
+``<ipython_profile_dir>/instrument/devices/__init__.py``.  
+This is true for any device, not just detectors.  
+
+.. code:: python
+        
+    from .stages import *
+    from .xspress3 import *
+    # from .dexela import *
+    # from .marCCD import *
+    from .pilatus import *
+    from .misc_devices import *
+
+
 Bluesky: 
 ========
 Bluesky runs in an interactive ipython console, which can be started with the 
@@ -59,3 +80,18 @@ RunEngine and connect to the database.  If any modifications need to be made to
 these files, they are located in ``~/ipystartup``
 
 Before editing these files, please contact Robert Tang-Kong (roberttk at slac). 
+
+User Information
+----------------
+When a new user gets started at the beamline, the RunEngine needs to record that 
+user's information.  The metadata associated with all runs is stored in the 
+RunEngine itself, and can be changed with the following syntax:  
+
+.. code:: python
+
+    RE.md['key'] = 'item'
+
+This metadata is carried over between Bluesky Ipython sessions, so be wary of 
+not updating this information.  The convenience function ``show_md()`` has been
+provided to allow easy viewing of this information, though ``RE.md`` can be 
+manipulated as a simple Python dictionary would.

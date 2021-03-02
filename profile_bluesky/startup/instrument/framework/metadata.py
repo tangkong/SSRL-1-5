@@ -20,8 +20,9 @@ from .initialize import RE
 # Set up default metadata
 
 RE.md['beamline_id'] = 'SSRL 1-5 HiTp'
-RE.md['proposal_id'] = 'testing'
-RE.md['pid'] = os.getpid()
+if 'proposal_id' not in RE.md:
+    RE.md['proposal_id'] = 'testing'
+RE.md['pid'] = os.getpid() # process ID
 
 HOSTNAME = socket.gethostname() or 'localhost' 
 USERNAME = getpass.getuser() or 'SSRL 1-5 HiTp user' 
@@ -48,3 +49,13 @@ def show_md():
 
 def update_md(key, item):
     print('Update persistent metadata with the syntax: RE.md["key"]="item"')
+
+def new_user():
+    print('Updating metadata for new user...')
+    prop = input('Proposal id: ')
+    operator = input('Operator: ')
+
+    # update md
+    RE.md['proposal_id'] = prop
+    RE.md['operator'] = operator
+    
