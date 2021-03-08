@@ -7,6 +7,6 @@ Typically one of {dexela, marCCD, pilatus} will be enabled at a time.
 from .stages import *
 from .xspress3 import *
 # from .dexela import *
-# from .marCCD import *
-from .pilatus import *
+from .marCCD import *
+# from .pilatus import *
 from .misc_devices import *
