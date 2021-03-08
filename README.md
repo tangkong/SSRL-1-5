@@ -1,5 +1,5 @@
-# SSRL beamline X-X startup scripts
-[Documentation](https://tangkong.github.io/SSRL-X-X/)
+# SSRL beamline 1-5 startup scripts
+[Documentation](https://tangkong.github.io/SSRL-1-5/)
 
 Template for beamline Bluesky collection profile. To use, clone this repository and make modifications as necessary
 
