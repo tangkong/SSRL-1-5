@@ -35,3 +35,4 @@ Index:
    beamline-startup_hardware
    beamline-startup_software
    device-config
+   networking
