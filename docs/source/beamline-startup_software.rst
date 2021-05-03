@@ -44,6 +44,37 @@ Galil RIO (laser range finder, I0, I1, shutter)
     (collect_2020q2) [b_campen@blueepicslx ~]$ cd /opt/EPICS/3.14/iocs/galil_rio/iocBoot/ioc-galil-rio/
     (collect_2020q2) [b_campen@blueepicslx ~]$ ./st.cmd
 
+XSPRESS3 (multi channel fluorescence detector)
+----------------------------------------------
+Sometimes EPICS is misconfigured.  Check to make sure the environment variable 
+`EPICS_CAS_INTF_ADDR_LIST` is not set.  You can unset this once ssh'd into the 
+XSPRESS3 computer:
+
+.. code:: console 
+
+    [xspress3@xspress3 ~]$ env | grep CA
+    EPICS_CAS_INTF_ADDR_LIST=localhost
+    EPICS_CA_AUTO_ADDR_LIST=NO
+    EPICS_CA_ADDR_LIST=localhost
+    [xspress3@xspress3 ~]$ unset EPICS_CAS_INTF_ADDR_LIST
+
+Starting the ioc can be done either from bluedev via the alias `xspress3-2-ioc`:
+
+.. code:: console
+    
+    (collect) [b_spec@bluedevlx ~]$ xspress3-2-ioc
+
+Or from the xspress3 box directly: 
+
+.. code:: console
+
+    [xspress3@xspress3 ~]$ /usr/bin/xspress3-ioc.sh
+
+Area Detector (MarCCD)
+----------------------
+The IOC for the mar detector must be on...
+
+
 
 Profile Configuration:
 ======================
@@ -78,6 +109,11 @@ alias ``bluesky`` on bluedevlx.slac.stanford.edu:
 This will run a series of startup scripts which, among other things, start the 
 RunEngine and connect to the database.  If any modifications need to be made to 
 these files, they are located in ``~/ipystartup``
+
+Importantly, if any of the above IOC's are not started, Bluesky will fail to 
+start.  Bluesky attempts to connect to each device, and if one is not available 
+the startup process fails.  Error messages should reveal which IOC's are not 
+running, if problems arise.  
 
 Before editing these files, please contact Robert Tang-Kong (roberttk at slac). 
 
