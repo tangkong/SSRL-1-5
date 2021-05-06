@@ -21,34 +21,38 @@ EPICS:
 These IOCs will eventually be bundled into a single command, but for now each 
 must be started individually.  IOC's are currently housed on 
 blueepicslx.slac.stanford.edu.  The patten is the same, navigate to the correct
-folder and run the ``st.cmd`` script file
+folder and run the ``st.cmd`` script file.  IOC's should be started with sudo 
+access, via the ``specadm`` account.  
 
 IMS motors (stage px, py, pz)
 -----------------------------
 .. code:: console
 
-    (collect_2020q2) [b_campen@blueepicslx ~]$ cd /opt/EPICS/3.14/iocs/motor/iocBoot/ioc-ims/
-    (collect_2020q2) [b_campen@blueepicslx ~]$ ./st.cmd
+    [specadm@blueepicslx ~]$ cd /opt/EPICS/3.14/iocs/motor/iocBoot/ioc-ims/
+    [specadm@blueepicslx ~]$ ./st.cmd
 
 PICO motors (stage vx, vy)
 --------------------------
 .. code:: console
 
-    (collect_2020q2) [b_campen@blueepicslx ~]$ cd /opt/EPICS/3.14/iocs/motor/iocBoot/ioc-picoPMNC87xx/
-    (collect_2020q2) [b_campen@blueepicslx ~]$ ./st.cmd
+    [specadm@blueepicslx ~]$ cd /opt/EPICS/3.14/iocs/motor/iocBoot/ioc-picoPMNC87xx/
+    [specadm@blueepicslx ~]$ ./st.cmd
 
 Galil RIO (laser range finder, I0, I1, shutter)
 -----------------------------------------------
 .. code:: console
 
-    (collect_2020q2) [b_campen@blueepicslx ~]$ cd /opt/EPICS/3.14/iocs/galil_rio/iocBoot/ioc-galil-rio/
-    (collect_2020q2) [b_campen@blueepicslx ~]$ ./st.cmd
+    [specadm@blueepicslx ~]$ cd /opt/EPICS/3.14/iocs/galil_rio/iocBoot/ioc-galil-rio/
+    [specadm@blueepicslx ~]$ ./st.cmd
 
 XSPRESS3 (multi channel fluorescence detector)
 ----------------------------------------------
 Sometimes EPICS is misconfigured.  Check to make sure the environment variable 
 `EPICS_CAS_INTF_ADDR_LIST` is not set.  You can unset this once ssh'd into the 
-XSPRESS3 computer:
+XSPRESS3 computer.  It appears that this variable is reset when the xspress3 
+computer is restarted
+
+This IOC is best started on the xspress3 computer directly:
 
 .. code:: console 
 
@@ -72,7 +76,14 @@ Or from the xspress3 box directly:
 
 Area Detector (MarCCD)
 ----------------------
-The IOC for the mar detector must be on...
+The IOC for the mar detector must be on and have access to the data directory 
+(/home/data).  At the moment this necessitates starting from BlueDevLX.  
+
+.. code:: console
+
+    (collect) [b_spec@bluedevlx ~]$ cd iocs/marCCD/iocBoot/ioc-marCCD/
+    (collect) [b_spec@bluedevlx ioc-marCCD]$ ./st.cmd
+
 
 
 
@@ -91,9 +102,9 @@ This is true for any device, not just detectors.
         
     from .stages import *
     from .xspress3 import *
-    # from .dexela import *
+    from .dexela import *
     # from .marCCD import *
-    from .pilatus import *
+    # from .pilatus import *
     from .misc_devices import *
 
 
