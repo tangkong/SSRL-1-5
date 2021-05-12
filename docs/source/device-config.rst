@@ -24,6 +24,20 @@ relevant are listed below.
 | AcquireTime          | 5            |
 +----------------------+--------------+
 
+Calibrating the Xspress3
+------------------------
+The Xpress3 ships with calibration software.  With the IOC off, run ``remote.py``
+in ``/usr/lib64/python2.7/site-packages/xspress3-autocalib/remote.py``.  
+
+After some time a web page should appear with options to either collect a spectrum 
+or perform autocalibration.  Once you have confirmed the xspress3 is collecting
+data from a copper standard, start the calibration procedure.  This process should 
+center the copper peak at 8045 eV.  
+
+.. figure:: images/xsp3_auto_calib.png
+  :width: 700
+  :alt: HiTp IP Network
+
 ---------
 Galil RIO
 ---------
@@ -33,7 +47,7 @@ Galil RIO
 +====================+===========+
 | Laser Range Finder | ``AI0``   |
 +--------------------+-----------+
-| I0 ion gauge       | ``AI1``   |
+| I0 ion gauge       | ``AI1``   |q
 +--------------------+-----------+
 | I1 ion gauge       | ``AI2``   |
 +--------------------+-----------+
@@ -57,7 +71,7 @@ Motor Configuration
 +------+-----------------+---------+---------+-------+---------+-------+------------+---------+
 | Name | Motor           | .VELO   | .VMAX   | .ACCL | .VBAS   | .SREV | .MRES      | .UREV   |
 +------+-----------------+---------+---------+-------+---------+-------+------------+---------+
-| th   | BL00:IMS:MOTOR1 | 0.5     | 62.9881 | 0.05  | 0.5     | 51200 | 3.906e-5   | 1.99987 |
+| th   | BL00:IMS:MOTOR1 | 0.5     | 62.9881 | 0.05  | 0.5     | 51200 | 1.95313e-5 | 1       |
 +------+-----------------+---------+---------+-------+---------+-------+------------+---------+
 | pz   | BL00:IMS:MOTOR2 | 3.14961 | 4       | 2     | 0.1     | 28565 | 3.50079e-5 | 1       |
 +------+-----------------+---------+---------+-------+---------+-------+------------+---------+

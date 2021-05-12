@@ -169,14 +169,19 @@ uid of each image.
 ``level_stage_single``
 ----------------------
 
-as of the writing of this passage (09/20/2020), the single wafer stage can be 
-leveled via the following commands
+as of the writing of this passage (05/12/2021), the single wafer stage can be 
+leveled via the following commands.  Assuming the offsets have px=0, py=0 at 
+the crosshair in the center of the stage.  
 
 .. code-block:: ipython
 
-    In [19]: RE(level_stage_single(lrf, s_stage.vx, s_stage.px, -50, 50))
+    In [1]: %mov py 0
 
-    In [19]: RE(level_stage_single(lrf, s_stage.vy, s_stage.py, 60, -60))
+    In [2]: RE(level_stage_single(lrf, vx, px, -50, 50))
+
+    In [3]: %mov px 43
+
+    In [4]: RE(level_stage_single(lrf, vy, py, 75, -75))
 
 ``mesh_grid_circ``
 ------------------
