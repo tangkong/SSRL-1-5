@@ -18,7 +18,7 @@ class HiTpStage(MotorBundle):
     pz = Cpt(EpicsMotor, 'BL00:IMS:MOTOR2', kind='hinted', labels=('sample',))
 
     # plate vert adjust motor 1, 2
-    vx = Cpt(EpicsMotor, 'BL00:PICOD1:MOTOR3', labels=('sample',))
+    vx = Cpt(EpicsMotor, 'BL00:PICOD1:MOTOR1', labels=('sample',))
     vy = Cpt(EpicsMotor, 'BL00:PICOD1:MOTOR2', labels=('sample',))
 
     th = Cpt(EpicsMotor, 'BL00:IMS:MOTOR1', labels=('sample',))
