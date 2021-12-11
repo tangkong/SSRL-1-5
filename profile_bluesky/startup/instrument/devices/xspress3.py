@@ -152,5 +152,7 @@ xsp3.channel1.rois.roi01.value.kind = 'hinted'
 xsp3.channel1.rois.roi02.value.kind = 'hinted'
 xsp3.channel1.rois.roi03.value.kind = 'hinted'
 xsp3.channel1.rois.roi04.value.kind = 'hinted'
+xsp3.channel1.rois.roi05.value.kind = 'hinted'
+xsp3.channel1.rois.roi06.value.kind = 'hinted'
 
 xsp3.hdf5.warmup()

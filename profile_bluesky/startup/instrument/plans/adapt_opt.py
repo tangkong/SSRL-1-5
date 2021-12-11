@@ -8,16 +8,68 @@ import bluesky.plan_stubs as bps
 import bluesky.plans as bp
 from bluesky_live.bluesky_run import BlueskyRun, DocumentCache
 
+from ..framework import db
 from ..devices.misc_devices import filter1, filter2, filter3, filter4
+from .helpers import home
 
-
-__all__ = ['filter_opt_count', 'solve_filter_setup','filter_thicks', 'filter_hist']
+__all__ = ['align_wafer','filter_opt_count', 'solve_filter_setup','filter_thicks', 'filter_hist']
 
 # dataframe to record intensity and filter information.  
 filter_hist = pd.DataFrame(columns=['time','filter_i','filter_f','I_i', 'I_f', 
                                     'I_f/I_i', 'mu', 'signal'])
 
 filter_thicks = [0.89, 2.52, 3.83, 10.87]
+
+def align_wafer(xsp3,px,py,*,md=None):
+    """
+    find the x and y boundaries of a combinatorial wafer library (of either 3in or 4in diameter), find the middle of the wafer, and set motor offsets to center the wafer at (0,0)
+
+    :param xsp3: xpress3 vortex detector
+    :type xsp3:
+    :param px: x motor object
+    :type px:
+    :param py: y motor object 
+    :type py:
+    
+    """
+
+    # first move the stage to whatever 'home' currently is
+    #yield from home()
+
+    # just assume you need to take as wide of a scan as possible
+    xtens = 43
+    num = 60
+    
+    for mot in [px, py]:
+        # take a rel_scan in the x direction, read the xpress3 total signal, and find the sample boundaries
+        # take derivative and find maxes?
+        yield from bp.rel_scan([xsp3],mot,-xtens,xtens,num=num,md=md)
+
+        
+
+        # okay now grab the data from the correct roi
+        xsignal = np.array(db[-1].table()['xsp3_channel1_rois_roi02_value'])
+        print(xsignal)
+        xpos = np.array(db[-1].table()[mot.name]) # might work with [mot.name]
+        print(xpos)
+        # take the derivative and find the highest two points
+        # we have to pad a value to the beginning/end of deriv
+        # so that it has the same dimension as the position/signal arrays
+        # padding the front with a 0 seems to work (?tbd)
+        deriv_x = np.diff(xsignal,prepend=0)/np.diff(xpos,prepend=0)
+
+
+        left_x = xpos[deriv_x==deriv_x.max()].item()
+        right_x = xpos[deriv_x==deriv_x.min()].item()
+        nx = (right_x-left_x)/2 + left_x
+
+        # get the current position and adjust by nx
+        cpos = mot.user_offset.get()
+        mot.user_offset.set(cpos-nx) #subtract? add? signed or abs val?
+
+
+    # move to the center of the sample at the end
+    yield from bps.mv(px,0,py,0)
 
 def max_pixel_count(dets, sat_count=60000, md={}):
     """max_pixel_count 
@@ -42,7 +94,7 @@ def max_pixel_count(dets, sat_count=60000, md={}):
     # run standard count plan with new acquire times
     yield from bp.count(dets, md=md)
 
-def filter_opt_count(det, target_count=100000, md={}):
+def filter_opt_count(det, target_count=100000, mu=0.8, md={}):
     """ filter_opt_count
     OPtimize counts using filters 
     Assumes mu=0.2, x = [0.89, 2.52, 3.83, 10.87]
@@ -70,11 +122,11 @@ def filter_opt_count(det, target_count=100000, md={}):
 
 
     # gather filter information and solve 
-    filter_status = [int(filter1.get()/5), int(filter2.get()/5), 
-                        int(filter3.get()/5), int(filter4.get()/5)]
+    filter_status = [round(filter1.get()/5), round(filter2.get()/5), 
+                        round(filter3.get()/5), round(filter4.get()/5)]
     print(filter_status)
     filter_status = [not e for e in filter_status]
-    new_filters = solve_filter_setup(filter_status, curr_counts, target_count)
+    new_filters = solve_filter_setup(filter_status, curr_counts, target_count, mu=mu)
     # invert again to reflect filter status
     new_filters = [not e for e in new_filters]
     print(new_filters)
@@ -84,7 +136,7 @@ def filter_opt_count(det, target_count=100000, md={}):
     filter3.put(new_filters[2]*4.9)
     filter4.put(new_filters[3]*4.9)
     
-    yield from bp.trigger_and_read([det, filter1, filter2, filter3, filter4])
+    yield from bps.trigger_and_read([det, filter1, filter2, filter3, filter4])
 
     # close out run
     yield from bps.close_run()
@@ -117,7 +169,7 @@ def solve_filter_setup(curr_filters, curr_counts, target_counts,
     filter_cfgs = [int_to_bool_list(k) for k in filter_cfgs]
 
     I_new = [I0*np.exp(-mu * np.dot(x, k)) for k in filter_cfgs]
-
+    print(I_new)
     index = np.argmin(np.abs(np.array(I_new)-target_counts))
 
     return filter_cfgs[index]
