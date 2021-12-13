@@ -87,7 +87,7 @@ def max_pixel_count(dets, sat_count=60000, md={}):
         # =================== BIG IF, DOES THIS EXIST
         curr_max_counts = det.max_count.get()
         # ============================================
-        new_acq_time = round(sat_count / curr_max_counts * curr_acquire_time, 2)
+        new_acq_time = round(sat_count / curr_max_counts * curr_acq_time, 2)
         
         yield from bps.mv(det.cam.acquire_time, new_acq_time)
 
