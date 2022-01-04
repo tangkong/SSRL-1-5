@@ -24,6 +24,8 @@ relevant are listed below.
 | AcquireTime          | 5            |
 +----------------------+--------------+
 
+.. _xsp3-calibration:
+
 Calibrating the Xspress3
 ------------------------
 The Xpress3 ships with calibration software.  With the IOC off, run ``remote.py``

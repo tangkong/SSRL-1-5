@@ -274,6 +274,8 @@ brackets:
     # unique. In the event of duplicates, the most recent match is returned.
     header = db[42]
 
+.. _managing-metadata:
+
 Managing Metadata 
 =================
 Metadata is stored with each run, and can be set either for a single run or for 

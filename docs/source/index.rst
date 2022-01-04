@@ -26,6 +26,7 @@ Index:
    :caption: Examples
    :maxdepth: 1
 
+   alignment
    data-collection
 
 .. toctree::

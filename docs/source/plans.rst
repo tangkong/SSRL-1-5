@@ -137,6 +137,8 @@ Signature:
     Out[7]: 0.2466375712535196
 
 
+.. _hitp-plans:
+
 
 High Throughput (HiTp) specific plans
 =====================================
