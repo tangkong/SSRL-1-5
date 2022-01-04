@@ -10,3 +10,5 @@ __pycache__/
 docs/source/_build/
 happi/
 /startup/
+
+history.sqlite
