@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plans &mdash; SSRL-1-5 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="faq.html" />
+    <link rel="prev" title="Devices" href="devices.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SSRL-1-5
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-operation.html">Basic Operation in Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devices.html">Devices</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plans</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#helper-functions-plans">Helper functions, plans</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#show-table"><code class="docutils literal notranslate"><span class="pre">show_table()</span></code>:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#show-image"><code class="docutils literal notranslate"><span class="pre">show_image()</span></code>:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tune-signal-axis"><code class="docutils literal notranslate"><span class="pre">tune(signal,</span> <span class="pre">axis)</span></code> :</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#high-throughput-hitp-specific-plans">High Throughput (HiTp) specific plans</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loc-177-scan-dets"><code class="docutils literal notranslate"><span class="pre">loc_177_scan(dets)</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dark-light-plan-dets-shutter"><code class="docutils literal notranslate"><span class="pre">dark_light_plan(dets,</span> <span class="pre">shutter)</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#level-stage-single"><code class="docutils literal notranslate"><span class="pre">level_stage_single</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mesh-grid-circ"><code class="docutils literal notranslate"><span class="pre">mesh_grid_circ</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="alignment.html">Sample Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-collection.html">Data Collection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Admin Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_hardware.html">Beamline Startup: High Throughput Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_software.html">Beamline Startup: EPICS and Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device-config.html">Device Configuration Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SSRL-1-5</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Plans</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/plans.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="plans">
+<h1>Plans<a class="headerlink" href="#plans" title="Permalink to this headline"></a></h1>
+<p>A variety of plans for your use.  These are built out of Bluesky
+<a class="reference external" href="https://blueskyproject.io/bluesky/plans.html#pre-assembled-plans">plans</a> and <a class="reference external" href="https://blueskyproject.io/bluesky/plans.html#stub-plans">plan stubs</a>, and customized to be very specific to operations
+at SSRL1-5.  If you’d like to build
+your own plans out of the existing plans, see this <a class="reference external" href="https://nsls-ii.github.io/bluesky/tutorial.html#plans-in-series">tutorial section</a>.</p>
+<section id="helper-functions-plans">
+<h2>Helper functions, plans<a class="headerlink" href="#helper-functions-plans" title="Permalink to this headline"></a></h2>
+<section id="show-table">
+<h3><code class="docutils literal notranslate"><span class="pre">show_table()</span></code>:<a class="headerlink" href="#show-table" title="Permalink to this headline"></a></h3>
+<p>Shows data from the last run in tablular from.  Providing an index (i)
+will return data from the ‘i-th’ run.  This is simply a wrapper for <code class="docutils literal notranslate"><span class="pre">db[i].table()</span></code></p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [33]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="n">det</span><span class="p">]))</span>
+
+
+<span class="go">Transient Scan ID: 9     Time: 2020-09-03 14:32:59</span>
+<span class="go">Persistent Unique Scan ID: &#39;a70862bd-782f-44f6-98aa-bf5328854a67&#39;</span>
+<span class="go">New stream: &#39;primary&#39;</span>
+<span class="go">+-----------+------------+------------+</span>
+<span class="go">|   seq_num |       time |        det |</span>
+<span class="go">+-----------+------------+------------+</span>
+<span class="go">|         1 | 14:32:59.1 |      0.989 |</span>
+<span class="go">+-----------+------------+------------+</span>
+<span class="go">generator count [&#39;a70862bd&#39;] (scan num: 9)</span>
+
+
+<span class="gh">Out[33]: </span><span class="go">(&#39;a70862bd-782f-44f6-98aa-bf5328854a67&#39;,)</span>
+
+<span class="gp">In [34]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">motor</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+
+<span class="go">Transient Scan ID: 10     Time: 2020-09-03 14:33:18</span>
+<span class="go">Persistent Unique Scan ID: &#39;b161498f-df5f-4ae0-8a77-c894a9c1a567&#39;</span>
+<span class="go">New stream: &#39;primary&#39;</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|   seq_num |       time |      motor |        det |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|         1 | 14:33:18.3 |     -1.000 |      0.607 |</span>
+<span class="go">|         2 | 14:33:18.3 |      1.000 |      0.607 |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">generator scan [&#39;b161498f&#39;] (scan num: 10)</span>
+<span class="gh">Out[34]: </span><span class="go">(&#39;b161498f-df5f-4ae0-8a77-c894a9c1a567&#39;,)</span>
+
+
+<span class="gp">In [37]: </span><span class="n">show_table</span><span class="p">()</span>
+<span class="gh">Out[37]:</span>
+<span class="go">                                time       det  motor  motor_setpoint</span>
+<span class="go">seq_num</span>
+<span class="go">1       2020-09-03 21:33:18.330529213  0.606531   -1.0            -1.0</span>
+<span class="go">2       2020-09-03 21:33:18.359466553  0.606531    1.0             1.0</span>
+
+
+<span class="gp">In [38]: </span><span class="n">show_table</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># negative indexes walk from most recent to least</span>
+<span class="gh">Out[38]:</span>
+<span class="go">                                time       det</span>
+<span class="go">seq_num</span>
+<span class="go">1       2020-09-03 21:32:59.126556158  0.988639</span>
+</pre></div>
+</div>
+</section>
+<section id="show-image">
+<h3><code class="docutils literal notranslate"><span class="pre">show_image()</span></code>:<a class="headerlink" href="#show-image" title="Permalink to this headline"></a></h3>
+<p>Shows last marCCD image, simple wrapper function around databroker call.
+Sets heat map scale to (min, mean+3*std).  Defaults to first marccd data point
+in most recent scan, but allows for customization.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">show_image</span><span class="p">(</span><span class="n">ind</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">data_pt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">img_key</span><span class="o">=</span><span class="s1">&#39;marCCD_image&#39;</span><span class="p">)</span> <span class="c1">#these are the default parameters</span>
+</pre></div>
+</div>
+</section>
+<section id="tune-signal-axis">
+<h3><code class="docutils literal notranslate"><span class="pre">tune(signal,</span> <span class="pre">axis)</span></code> :<a class="headerlink" href="#tune-signal-axis" title="Permalink to this headline"></a></h3>
+<p>Tunes a motor based on output from a signal.  A width and number of steps can be
+specified.  After scanning the motor from <code class="docutils literal notranslate"><span class="pre">-width/2</span></code> to <code class="docutils literal notranslate"><span class="pre">+width/2</span></code> relative
+to the current position, the motor will be moved to either the center of mass
+(‘com’) or midpoint between half-max points (‘cen’).</p>
+<p>Default parameters are provided for some motors, otherwise parameters must be
+supplied as arguments.</p>
+<p>Signature:
+<code class="docutils literal notranslate"><span class="pre">tune(signal,</span> <span class="pre">motor,</span> <span class="pre">width=None,</span> <span class="pre">num=None,</span> <span class="pre">peak_choice=None,</span> <span class="pre">md=None)</span></code></p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">motor</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gh">Out[5]: </span><span class="go">()</span>
+
+<span class="gp">In [6]: </span><span class="n">RE</span><span class="p">(</span><span class="n">tune</span><span class="p">(</span><span class="n">det</span><span class="p">,</span> <span class="n">motor</span><span class="p">))</span>
+
+
+<span class="go">Transient Scan ID: 3     Time: 2020-09-03 15:14:19</span>
+<span class="go">Persistent Unique Scan ID: &#39;1a2e178d-89b0-4256-a6ed-7b6ea987e336&#39;</span>
+<span class="go">New stream: &#39;primary&#39;</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|   seq_num |       time |      motor |        det |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|         1 | 15:14:19.3 |     -1.000 |      0.607 |</span>
+<span class="go">|         2 | 15:14:19.4 |     -0.789 |      0.732 |</span>
+<span class="go">|         3 | 15:14:19.4 |     -0.579 |      0.846 |</span>
+<span class="go">|         4 | 15:14:19.4 |     -0.368 |      0.934 |</span>
+<span class="go">|         5 | 15:14:19.4 |     -0.158 |      0.988 |</span>
+<span class="go">|         6 | 15:14:19.4 |      0.053 |      0.999 |</span>
+<span class="go">|         7 | 15:14:19.5 |      0.263 |      0.966 |</span>
+<span class="go">|         8 | 15:14:19.5 |      0.474 |      0.894 |</span>
+<span class="go">|         9 | 15:14:19.5 |      0.684 |      0.791 |</span>
+<span class="go">|        10 | 15:14:19.5 |      0.895 |      0.670 |</span>
+<span class="go">|        11 | 15:14:19.6 |      1.105 |      0.543 |</span>
+<span class="go">|        12 | 15:14:19.6 |      1.316 |      0.421 |</span>
+<span class="go">|        13 | 15:14:19.6 |      1.526 |      0.312 |</span>
+<span class="go">|        14 | 15:14:19.7 |      1.737 |      0.221 |</span>
+<span class="go">|        15 | 15:14:19.7 |      1.947 |      0.150 |</span>
+<span class="go">|        16 | 15:14:19.7 |      2.158 |      0.097 |</span>
+<span class="go">|        17 | 15:14:19.8 |      2.368 |      0.061 |</span>
+<span class="go">|        18 | 15:14:19.8 |      2.579 |      0.036 |</span>
+<span class="go">|        19 | 15:14:19.8 |      2.789 |      0.020 |</span>
+<span class="go">|        20 | 15:14:19.8 |      3.000 |      0.011 |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">generator motor.tune [&#39;1a2e178d&#39;] (scan num: 3)</span>
+<span class="gh">Out[6]: </span><span class="go">(&#39;1a2e178d-89b0-4256-a6ed-7b6ea987e336&#39;,)</span>
+
+<span class="gp">In [7]: </span><span class="n">motor</span><span class="o">.</span><span class="n">position</span>
+<span class="gh">Out[7]: </span><span class="go">0.2466375712535196</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="high-throughput-hitp-specific-plans">
+<span id="hitp-plans"></span><h2>High Throughput (HiTp) specific plans<a class="headerlink" href="#high-throughput-hitp-specific-plans" title="Permalink to this headline"></a></h2>
+<section id="loc-177-scan-dets">
+<h3><code class="docutils literal notranslate"><span class="pre">loc_177_scan(dets)</span></code><a class="headerlink" href="#loc-177-scan-dets" title="Permalink to this headline"></a></h3>
+<p>Macro for automatically scanning a HiTp library with 177 points.  Currently this
+plan does not take any dark-field images.  <code class="docutils literal notranslate"><span class="pre">dets</span></code> is a list of detectors</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="n">RE</span><span class="p">(</span><span class="n">loc_177_scan</span><span class="p">([</span><span class="n">dexDet</span><span class="p">,</span> <span class="n">xsp3</span><span class="p">]))</span>
+</pre></div>
+</div>
+</section>
+<section id="dark-light-plan-dets-shutter">
+<h3><code class="docutils literal notranslate"><span class="pre">dark_light_plan(dets,</span> <span class="pre">shutter)</span></code><a class="headerlink" href="#dark-light-plan-dets-shutter" title="Permalink to this headline"></a></h3>
+<p>Simple acquisition plan for a single point.  Closes the shutter, takes a dark
+image, opens the shutter, and finally takes a light image.  Both images are
+referenced in the same run, under the metadata tag: <code class="docutils literal notranslate"><span class="pre">im_type</span></code>.  Returns the
+uid of each image.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">uids</span> <span class="o">=</span> <span class="n">RE</span><span class="p">(</span><span class="n">dark_light_plan</span><span class="p">([</span><span class="n">dexDet</span><span class="p">],</span> <span class="n">shutter</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="level-stage-single">
+<h3><code class="docutils literal notranslate"><span class="pre">level_stage_single</span></code><a class="headerlink" href="#level-stage-single" title="Permalink to this headline"></a></h3>
+<p>as of the writing of this passage (05/12/2021), the single wafer stage can be
+leveled via the following commands.  Assuming the offsets have px=0, py=0 at
+the crosshair in the center of the stage.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">mov</span> py 0
+
+<span class="gp">In [2]: </span><span class="n">RE</span><span class="p">(</span><span class="n">level_stage_single</span><span class="p">(</span><span class="n">lrf</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+
+<span class="gp">In [3]: </span><span class="o">%</span><span class="k">mov</span> px 43
+
+<span class="gp">In [4]: </span><span class="n">RE</span><span class="p">(</span><span class="n">level_stage_single</span><span class="p">(</span><span class="n">lrf</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="o">-</span><span class="mi">75</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="mesh-grid-circ">
+<h3><code class="docutils literal notranslate"><span class="pre">mesh_grid_circ</span></code><a class="headerlink" href="#mesh-grid-circ" title="Permalink to this headline"></a></h3>
+<p>Scans points in a circular grid with given radius.  Scan bounds is defined by a
+4 endpoints <code class="docutils literal notranslate"><span class="pre">(s1,</span> <span class="pre">f1,</span> <span class="pre">s2,</span> <span class="pre">f2)</span></code>.  A measurement is taken at every point within
+the bounds defined by these endpoints <em>if</em> that point is inside the radius.</p>
+<p>To align the grid within the circular boundary, a sample location can be provided to
+the <code class="docutils literal notranslate"><span class="pre">pin</span></code> variable.  If no <code class="docutils literal notranslate"><span class="pre">pin</span></code> is provied, then the current location is
+used.</p>
+<p>In the case where a scan has been interrupted after the first n measurements,
+one can supply a number of measurements to skip.</p>
+<p>The order of the motors controls how the grid is traversed. The “slowest” axis
+comes first, and only scans between its limits once.  The second “faster” axis
+will scan betwen its limits once for each position on the first motor.
+This plan uses the <code class="docutils literal notranslate"><span class="pre">blueksy.plans.grid_scan</span></code> behavior, and one can reference
+its more complete <a class="reference external" href="https://nsls-ii.github.io/bluesky/tutorial.html#scan-multiple-motors-in-a-grid">documentation</a>.</p>
+<a class="reference internal image-reference" href="_images/mesh_grid_circ_diagram.png"><img alt="Description of bounds defining mesh_grid_circ plan" src="_images/mesh_grid_circ_diagram.png" style="width: 300px;" /></a>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">RE</span><span class="p">(</span><span class="n">mesh_circ_grid</span><span class="p">([</span><span class="n">marDet</span><span class="p">],</span> <span class="n">s_stage</span><span class="o">.</span><span class="n">px</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span>
+<span class="go">                                s_stage.py, -10, 10, 4.5,</span>
+<span class="go">                                radius=10, pin=(1.5, 1.5), skip=4 ))</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="devices.html" class="btn btn-neutral float-left" title="Devices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="faq.html" class="btn btn-neutral float-right" title="Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, roberttk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

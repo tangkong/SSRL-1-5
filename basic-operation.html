@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Operation in Bluesky &mdash; SSRL-1-5 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Devices" href="devices.html" />
+    <link rel="prev" title="Welcome to SSRL-1-5’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SSRL-1-5
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Operation in Bluesky</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#standard-plans">Standard plans</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scanning-detectors-bp-scan">Scanning detectors: <code class="docutils literal notranslate"><span class="pre">bp.scan</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scanning-a-grid-of-points-bp-grid-scan">Scanning a grid of points: <code class="docutils literal notranslate"><span class="pre">bp.grid_scan</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#grid-scans-bp-grid-scan">Grid scans: <code class="docutils literal notranslate"><span class="pre">bp.grid_scan</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#move-motors-bps-mv">Move motors: <code class="docutils literal notranslate"><span class="pre">bps.mv</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#convenience-functions">Convenience Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motor-position-summary-wa">Motor position summary: <cite>%wa</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-saved-data">Accessing saved data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#searching-the-databroker">Searching the DataBroker:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#managing-metadata">Managing Metadata</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#per-run-metadata">Per-run metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#persistent-metadata">Persistent metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-metadata">Viewing metadata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="devices.html">Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plans.html">Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="alignment.html">Sample Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-collection.html">Data Collection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Admin Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_hardware.html">Beamline Startup: High Throughput Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_software.html">Beamline Startup: EPICS and Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device-config.html">Device Configuration Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SSRL-1-5</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Basic Operation in Bluesky</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/basic-operation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="basic-operation-in-bluesky">
+<h1>Basic Operation in Bluesky<a class="headerlink" href="#basic-operation-in-bluesky" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Bluesky provides a thorough <a class="reference external" href="https://nsls-ii.github.io/bluesky/tutorial.html">tutorial</a>.  The content here should be
+taken as a quick reference or crib sheet.</p>
+</div>
+<p>Commands are grouped into “plans”.  All plans in the Bluesky interface must be
+passed to the <code class="docutils literal notranslate"><span class="pre">RunEngine</span></code>, usually accessible by the variable <code class="docutils literal notranslate"><span class="pre">RE</span></code>.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span> <span class="o">&lt;</span><span class="n">plan</span><span class="o">&gt;</span> <span class="p">)</span>
+<span class="go">&lt;plan output&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">RunEngine</span></code> then takes care of orchestrating the experiment, sending
+signals to devices, and storing data.</p>
+<section id="standard-plans">
+<h2>Standard plans<a class="headerlink" href="#standard-plans" title="Permalink to this headline"></a></h2>
+<p>Standard plans are stored under the variable <code class="docutils literal notranslate"><span class="pre">bp</span></code>, which stands for
+<code class="docutils literal notranslate"><span class="pre">bluesky.plans</span></code>.  Most operations should eventually be folded into customized
+plans, but these will get the job done until then. Detailed documentation on
+Bluesky’s pre-assembled plans can be found
+<a class="reference external" href="https://nsls-ii.github.io/bluesky/plans.html">here</a>.
+Examples here will utilize basic Bluesky plans, which
+may be too verbose for the average user.  More specialized plans will be covered
+in the <a class="reference internal" href="plans.html"><span class="doc">Plans</span></a> section</p>
+<section id="scanning-detectors-bp-scan">
+<span id="scanning-detectors"></span><h3>Scanning detectors: <code class="docutils literal notranslate"><span class="pre">bp.scan</span></code><a class="headerlink" href="#scanning-detectors-bp-scan" title="Permalink to this headline"></a></h3>
+<p>The scan plan takes in a list of detectors to measure, a motor to scan, a start
+coordinate, stop coordinate, and number of measurements.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [3]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">motor</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="go">Transient Scan ID: 1     Time: 2020-08-27 15:57:41</span>
+<span class="go">Persistent Unique Scan ID: &#39;2a328312-e6e8-4127-a815-05f7020c6b2a&#39;</span>
+<span class="go">New stream: &#39;primary&#39;</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|   seq_num |       time |      motor |        det |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|         1 | 15:57:41.5 |     -1.000 |      0.607 |</span>
+<span class="go">|         2 | 15:57:41.5 |     -0.500 |      0.882 |</span>
+<span class="go">|         3 | 15:57:41.8 |      0.000 |      1.000 |</span>
+<span class="go">|         4 | 15:57:41.8 |      0.500 |      0.882 |</span>
+<span class="go">|         5 | 15:57:41.9 |      1.000 |      0.607 |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">generator scan [&#39;2a328312&#39;] (scan num: 1)</span>
+
+<span class="gh">Out[3]: </span><span class="go">(&#39;2a328312-e6e8-4127-a815-05f7020c6b2a&#39;,)</span>
+</pre></div>
+</div>
+<p>One can also perform a relative scan with <code class="docutils literal notranslate"><span class="pre">bp.rel_scan</span></code></p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="o">%</span><span class="k">mov</span> motor 1
+
+<span class="gp">In [5]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">rel_scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">motor</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+
+<span class="go">Transient Scan ID: 16     Time: 2020-09-17 18:40:56</span>
+<span class="go">Persistent Unique Scan ID: &#39;223510b1-fe9e-4b12-b427-70e5370ed86c&#39;</span>
+<span class="go">New stream: &#39;baseline&#39;</span>
+<span class="go">New stream: &#39;primary&#39;</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|   seq_num |       time |      motor |        det |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|         1 | 18:40:56.7 |      0.000 |      1.000 |</span>
+<span class="go">|         2 | 18:40:56.7 |      0.500 |      0.882 |</span>
+<span class="go">|         3 | 18:40:56.8 |      1.000 |      0.607 |</span>
+<span class="go">|         4 | 18:40:56.8 |      1.500 |      0.325 |</span>
+<span class="go">|         5 | 18:40:56.8 |      2.000 |      0.135 |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">generator rel_scan [&#39;223510b1&#39;] (scan num: 16)</span>
+<span class="gh">Out[5]: </span><span class="go">(&#39;223510b1-fe9e-4b12-b427-70e5370ed86c&#39;,)</span>
+</pre></div>
+</div>
+</section>
+<section id="scanning-a-grid-of-points-bp-grid-scan">
+<h3>Scanning a grid of points: <code class="docutils literal notranslate"><span class="pre">bp.grid_scan</span></code><a class="headerlink" href="#scanning-a-grid-of-points-bp-grid-scan" title="Permalink to this headline"></a></h3>
+<p>Relevant to High Throughput operations at 1-5 is the grid scan plan.  This plan
+scans multiple motors, with the option to either raster (default) or snake along
+axes.  Snaking will be more time efficient, but the time saved depends on
+factors such as motor speed
+More detailed descriptions of these plans can be found <a class="reference external" href="https://nsls-ii.github.io/bluesky/plans.html#multi-dimensional-scans">here</a>.  <a class="reference external" href="https://nsls-ii.github.io/bluesky/tutorial.html#scan-multiple-motors-in-a-grid">Snaking explained</a></p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [31]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">grid_scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span>
+<span class="go">    ...:  motor1, -1, 1, 3,</span>
+<span class="go">    ...:  motor2, -3, 3, 7, True))</span>
+
+
+<span class="go">Transient Scan ID: 17     Time: 2020-09-17 18:55:11</span>
+<span class="go">Persistent Unique Scan ID: &#39;d25cc1c3-a4bb-45b4-aabe-83379c8e9e18&#39;</span>
+<span class="go">New stream: &#39;baseline&#39;</span>
+<span class="go">New stream: &#39;primary&#39;</span>
+<span class="go">+-----------+------------+------------+------------+------------+</span>
+<span class="go">|   seq_num |       time |     motor1 |     motor2 |        det |</span>
+<span class="go">+-----------+------------+------------+------------+------------+</span>
+<span class="go">|         1 | 18:55:11.1 |     -1.000 |     -3.000 |      0.607 |</span>
+<span class="go">|         2 | 18:55:11.2 |     -1.000 |     -2.000 |      0.607 |</span>
+<span class="go">|         3 | 18:55:11.2 |     -1.000 |     -1.000 |      0.607 |</span>
+<span class="go">|         4 | 18:55:11.3 |     -1.000 |      0.000 |      0.607 |</span>
+<span class="go">|         5 | 18:55:11.3 |     -1.000 |      1.000 |      0.607 |</span>
+<span class="go">|         6 | 18:55:11.3 |     -1.000 |      2.000 |      0.607 |</span>
+<span class="go">|         7 | 18:55:11.6 |     -1.000 |      3.000 |      0.607 |</span>
+<span class="go">|         8 | 18:55:11.6 |      0.000 |      3.000 |      0.607 |</span>
+<span class="go">|         9 | 18:55:11.6 |      0.000 |      2.000 |      0.607 |</span>
+<span class="go">|        10 | 18:55:11.6 |      0.000 |      1.000 |      0.607 |</span>
+<span class="go">|        11 | 18:55:11.6 |      0.000 |      0.000 |      0.607 |</span>
+<span class="go">|        12 | 18:55:11.6 |      0.000 |     -1.000 |      0.607 |</span>
+<span class="go">|        13 | 18:55:11.6 |      0.000 |     -2.000 |      0.607 |</span>
+<span class="go">|        14 | 18:55:11.6 |      0.000 |     -3.000 |      0.607 |</span>
+<span class="go">|        15 | 18:55:11.6 |      1.000 |     -3.000 |      0.607 |</span>
+<span class="go">|        16 | 18:55:11.7 |      1.000 |     -2.000 |      0.607 |</span>
+<span class="go">|        17 | 18:55:11.7 |      1.000 |     -1.000 |      0.607 |</span>
+<span class="go">|        18 | 18:55:11.7 |      1.000 |      0.000 |      0.607 |</span>
+<span class="go">|        19 | 18:55:11.7 |      1.000 |      1.000 |      0.607 |</span>
+<span class="go">|        20 | 18:55:11.7 |      1.000 |      2.000 |      0.607 |</span>
+<span class="go">|        21 | 18:55:11.7 |      1.000 |      3.000 |      0.607 |</span>
+<span class="go">+-----------+------------+------------+------------+------------+</span>
+<span class="go">generator grid_scan [&#39;d25cc1c3&#39;] (scan num: 17)</span>
+<span class="gh">Out[31]: </span><span class="go">(&#39;d25cc1c3-a4bb-45b4-aabe-83379c8e9e18&#39;,)</span>
+</pre></div>
+</div>
+</section>
+<section id="grid-scans-bp-grid-scan">
+<h3>Grid scans: <code class="docutils literal notranslate"><span class="pre">bp.grid_scan</span></code><a class="headerlink" href="#grid-scans-bp-grid-scan" title="Permalink to this headline"></a></h3>
+<p>Scanning over an array of samples arranged in a grid is handled by the
+‘grid scan’ plan.  A more complete discussion can be found on the official
+<a class="reference external" href="https://nsls-ii.github.io/bluesky/tutorial.html#scan-multiple-motors-in-a-grid">documentation</a></p>
+</section>
+<section id="move-motors-bps-mv">
+<h3>Move motors: <code class="docutils literal notranslate"><span class="pre">bps.mv</span></code><a class="headerlink" href="#move-motors-bps-mv" title="Permalink to this headline"></a></h3>
+<p>The one exception to the rule is the “move” plan, which is a “plan_stub” used
+as a component of other plans.  As such it is accessed via <code class="docutils literal notranslate"><span class="pre">bps.mv</span></code>.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">motor</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gh">Out[1]: </span><span class="go">()</span>
+</pre></div>
+</div>
+<p>Can also access via “ipython magic” shortcuts</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="o">%</span><span class="k">mv</span> motor 2
+</pre></div>
+</div>
+</section>
+</section>
+<section id="convenience-functions">
+<h2>Convenience Functions<a class="headerlink" href="#convenience-functions" title="Permalink to this headline"></a></h2>
+<section id="motor-position-summary-wa">
+<h3>Motor position summary: <cite>%wa</cite><a class="headerlink" href="#motor-position-summary-wa" title="Permalink to this headline"></a></h3>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">wa</span>
+<span class="go">motors</span>
+<span class="go">    Positioner                     Value       Low Limit   High Limit  Offset</span>
+<span class="go">    motor                          0           AttributeError AttributeError AttributeError</span>
+<span class="go">    motor1                         0           AttributeError AttributeError AttributeError</span>
+<span class="go">    motor2                         0           AttributeError AttributeError AttributeError</span>
+
+<span class="go">    Local variable name                    Ophyd name (to be recorded as metadata)</span>
+<span class="go">    motor                                  motor</span>
+<span class="go">    motor1                                 motor1</span>
+<span class="go">    motor2                                 motor2</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="accessing-saved-data">
+<h2>Accessing saved data<a class="headerlink" href="#accessing-saved-data" title="Permalink to this headline"></a></h2>
+<p>You can access saved data through the databroker instance, which should be
+accessible as <code class="docutils literal notranslate"><span class="pre">db</span></code> in the bluesky sesison.  Some standard patterns are
+demonstrated below:
+<a class="reference external" href="https://nsls-ii.github.io/bluesky/tutorial.html#aside-access-saved-data">Official Documentation</a></p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="n">uid</span> <span class="o">=</span> <span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">motor</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+
+<span class="go">Transient Scan ID: 15     Time: 2020-09-17 18:13:03</span>
+<span class="go">Persistent Unique Scan ID: &#39;e2d02570-9b8f-4254-b205-107ba990d740&#39;</span>
+<span class="go">New stream: &#39;baseline&#39;</span>
+<span class="go">New stream: &#39;primary&#39;</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|   seq_num |       time |      motor |        det |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">|         1 | 18:13:03.4 |     -1.000 |      0.607 |</span>
+<span class="go">|         2 | 18:13:03.5 |     -0.500 |      0.882 |</span>
+<span class="go">|         3 | 18:13:03.5 |      0.000 |      1.000 |</span>
+<span class="go">|         4 | 18:13:03.5 |      0.500 |      0.882 |</span>
+<span class="go">|         5 | 18:13:03.5 |      1.000 |      0.607 |</span>
+<span class="go">+-----------+------------+------------+------------+</span>
+<span class="go">generator scan [&#39;e2d02570&#39;] (scan num: 15)</span>
+
+<span class="gp">In [20]: </span><span class="n">db</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">table</span><span class="p">()</span>  <span class="c1"># -1 designates the last run.  -2 would be second most recent, and so on.</span>
+<span class="gh">Out[20]:</span>
+<span class="go">                                time       det  motor  motor_setpoint</span>
+<span class="go">seq_num</span>
+<span class="go">1       2020-09-18 01:13:03.437488556  0.606531   -1.0            -1.0</span>
+<span class="go">2       2020-09-18 01:13:03.519411087  0.882497   -0.5            -0.5</span>
+<span class="go">3       2020-09-18 01:13:03.561402082  1.000000    0.0             0.0</span>
+<span class="go">4       2020-09-18 01:13:03.569704294  0.882497    0.5             0.5</span>
+<span class="go">5       2020-09-18 01:13:03.576864004  0.606531    1.0             1.0</span>
+
+<span class="gp">In [24]: </span><span class="n">db</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="s1">&#39;baseline&#39;</span><span class="p">)</span>  <span class="c1"># we have set up bluesky to take baseline measurements before and after each run</span>
+<span class="gh">Out[24]:</span>
+<span class="go">                                time  s_stage_px  ...  s_stage_th  s_stage_th_user_setpoint</span>
+<span class="go">seq_num                                            ...</span>
+<span class="go">1       2020-09-18 01:13:03.422709942        12.0  ...         1.0                       1.0</span>
+<span class="go">2       2020-09-18 01:13:03.589560270        12.0  ...         1.0                       1.0</span>
+
+<span class="go">[2 rows x 13 columns]</span>
+</pre></div>
+</div>
+<p>For those familiar with python data analysis, the <code class="docutils literal notranslate"><span class="pre">db[-1].table()</span></code> returns a
+familiar <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> object.</p>
+<section id="searching-the-databroker">
+<h3>Searching the DataBroker:<a class="headerlink" href="#searching-the-databroker" title="Permalink to this headline"></a></h3>
+<p>One of the key advantages of the Bluesky data collection system is the ability
+to search data quickly via saved metadata.  Again for a more thorough discussion,
+look <a class="reference external" href="https://blueskyproject.io/databroker/v1/tutorial.html#searching">here</a>.</p>
+<p>To search DataBroker based on metadata, use parentheses:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Search by plan name.</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="n">db</span><span class="p">(</span><span class="n">plan_name</span><span class="o">=</span><span class="s1">&#39;scan&#39;</span><span class="p">)</span>
+
+<span class="c1"># Search for runs involving a motor with the name &#39;eta&#39;.</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="n">db</span><span class="p">(</span><span class="n">motor</span><span class="o">=</span><span class="s1">&#39;eta&#39;</span><span class="p">)</span>
+
+<span class="c1"># Search for runs operated by a given user---assuming this metadata was</span>
+<span class="c1"># recorded in the first place!</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="n">db</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="s1">&#39;Dan&#39;</span><span class="p">)</span>
+
+<span class="c1"># Search by time range. (These keywords have a special meaning.)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="n">db</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="s1">&#39;2015-03-05&#39;</span><span class="p">,</span> <span class="n">until</span><span class="o">=</span><span class="s1">&#39;2015-03-10&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To search DataBroker based on relative indexing or unique id, you can use square
+brackets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the most recent run.</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Get the fifth most recent run.</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+
+<span class="c1"># Get a list of all five most recent runs, using Python slicing syntax.</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>
+
+<span class="c1"># Get a run whose unique ID (&quot;RunStart uid&quot;) begins with &#39;x39do5&#39;.</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;x39do5&#39;</span><span class="p">]</span>
+
+<span class="c1"># Get a run whose integer scan_id is 42. Note that this might not be</span>
+<span class="c1"># unique. In the event of duplicates, the most recent match is returned.</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="mi">42</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="managing-metadata">
+<span id="id1"></span><h2>Managing Metadata<a class="headerlink" href="#managing-metadata" title="Permalink to this headline"></a></h2>
+<p>Metadata is stored with each run, and can be set either for a single run or for
+all future runs.  For a more thorough discussion, look
+<a class="reference external" href="https://blueskyproject.io/bluesky/metadata.html">here</a> for the full
+documentation.</p>
+<section id="per-run-metadata">
+<h3>Per-run metadata<a class="headerlink" href="#per-run-metadata" title="Permalink to this headline"></a></h3>
+<p>Information such as sample name or operational note can be added only to the current
+plan.  One-time metadata can be added directly to the <cite>RE()</cite> call, and will be
+propogated to all runs in the plan:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">plan</span><span class="p">(),</span> <span class="n">sample_id</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">purpose</span><span class="o">=</span><span class="s1">&#39;calibration&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="persistent-metadata">
+<h3>Persistent metadata<a class="headerlink" href="#persistent-metadata" title="Permalink to this headline"></a></h3>
+<p>For information pertaining to all runs in a beamtime, metadata can be recorded
+persistently.</p>
+<p>To see the current metadata dictionary:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">show_md</span><span class="p">()</span>
+<span class="go">Persistent Metadata --------------------</span>
+<span class="go">beamline_id: SSRL 1-5 HiTp</span>
+<span class="go">scan_id: 6</span>
+<span class="go">login_id: b_spec@bluedevlx.slac.stanford.edu</span>
+<span class="go">pid: 28034</span>
+<span class="go">versions: {&#39;bluesky&#39;: &#39;1.6.6&#39;, &#39;ophyd&#39;: &#39;1.5.3&#39;, &#39;databroker&#39;: &#39;1.1.0&#39;, &#39;ssrltools&#39;: &#39;0.1&#39;, &#39;epics&#39;: &#39;3.4.2&#39;, &#39;numpy&#39;: &#39;1.19.1&#39;, &#39;matplotlib&#39;: &#39;3.3.1&#39;, &#39;pymongo&#39;: &#39;3.11.0&#39;}</span>
+<span class="go">proposal_id: testing</span>
+<span class="gt">----------------------------------------</span>
+</pre></div>
+</div>
+<p>Setting items in this metadata dictionary follows standard python dictionary
+syntax.  This metadata will be retained across ipython session restarts:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">RE</span><span class="o">.</span><span class="n">md</span><span class="p">[</span><span class="s1">&#39;operator&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;roberttk&#39;</span>
+
+<span class="gp">In [11]: </span><span class="n">show_md</span><span class="p">()</span>
+<span class="go">Persistent Metadata --------------------</span>
+<span class="go">beamline_id: SSRL 1-5 HiTp</span>
+<span class="go">scan_id: 6</span>
+<span class="go">login_id: b_spec@bluedevlx.slac.stanford.edu</span>
+<span class="go">pid: 28034</span>
+<span class="go">operator: roberttk</span>
+<span class="go">versions: {&#39;bluesky&#39;: &#39;1.6.6&#39;, &#39;ophyd&#39;: &#39;1.5.3&#39;, &#39;databroker&#39;: &#39;1.1.0&#39;, &#39;ssrltools&#39;: &#39;0.1&#39;, &#39;epics&#39;: &#39;3.4.2&#39;, &#39;numpy&#39;: &#39;1.19.1&#39;, &#39;matplotlib&#39;: &#39;3.3.1&#39;, &#39;pymongo&#39;: &#39;3.11.0&#39;}</span>
+<span class="go">proposal_id: testing</span>
+<span class="gt">----------------------------------------</span>
+</pre></div>
+</div>
+</section>
+<section id="viewing-metadata">
+<h3>Viewing metadata<a class="headerlink" href="#viewing-metadata" title="Permalink to this headline"></a></h3>
+<p>Most of the useful metadata can be accessed from the ‘run_start’ document:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">header</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># grab header for the last/most recent run</span>
+
+<span class="gp">In [5]: </span><span class="n">header</span><span class="o">.</span><span class="n">start</span>
+<span class="gh">Out[5]:</span>
+<span class="go">{&#39;uid&#39;: &#39;882fe013-33c4-4fc8-b345-48a4eacb8c87&#39;,</span>
+<span class="go">&#39;time&#39;: 1600276751.726932,</span>
+<span class="go">&#39;versions&#39;: {&#39;ophyd&#39;: &#39;1.5.3&#39;, &#39;bluesky&#39;: &#39;1.6.6&#39;},</span>
+<span class="go">&#39;scan_id&#39;: 1,</span>
+<span class="go">&#39;plan_type&#39;: &#39;generator&#39;,</span>
+<span class="go">&#39;plan_name&#39;: &#39;scan&#39;,</span>
+<span class="go">&#39;detectors&#39;: [&#39;det&#39;],</span>
+<span class="go">&#39;motors&#39;: [&#39;motor&#39;],</span>
+<span class="go">&#39;num_points&#39;: 3,</span>
+<span class="go">&#39;num_intervals&#39;: 2,</span>
+<span class="go">&#39;plan_args&#39;: {&#39;detectors&#39;: [&quot;SynGauss(prefix=&#39;&#39;, name=&#39;det&#39;, read_attrs=[&#39;val&#39;], configuration_attrs=[&#39;Imax&#39;, &#39;center&#39;, &#39;sigma&#39;, &#39;noise&#39;, &#39;noise_multiplier&#39;])&quot;],</span>
+<span class="go">&#39;num&#39;: 3,</span>
+<span class="go">&#39;args&#39;: [&quot;SynAxis(prefix=&#39;&#39;, name=&#39;motor&#39;, read_attrs=[&#39;readback&#39;, &#39;setpoint&#39;], configuration_attrs=[&#39;velocity&#39;, &#39;acceleration&#39;])&quot;,</span>
+<span class="go">-1,</span>
+<span class="go">1],</span>
+<span class="go">&#39;per_step&#39;: &#39;None&#39;},</span>
+<span class="go">&#39;hints&#39;: {&#39;dimensions&#39;: [[[&#39;motor&#39;], &#39;primary&#39;]]},</span>
+<span class="go">&#39;plan_pattern&#39;: &#39;inner_product&#39;,</span>
+<span class="go">&#39;plan_pattern_module&#39;: &#39;bluesky.plan_patterns&#39;,</span>
+<span class="go">&#39;plan_pattern_args&#39;: {&#39;num&#39;: 3,</span>
+<span class="go">&#39;args&#39;: [&quot;SynAxis(prefix=&#39;&#39;, name=&#39;motor&#39;, read_attrs=[&#39;readback&#39;, &#39;setpoint&#39;], configuration_attrs=[&#39;velocity&#39;, &#39;acceleration&#39;])&quot;,</span>
+<span class="go">-1,</span>
+<span class="go">1]}}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to SSRL-1-5’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="devices.html" class="btn btn-neutral float-right" title="Devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, roberttk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

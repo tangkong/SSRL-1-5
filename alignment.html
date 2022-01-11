@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample Alignment &mdash; SSRL-1-5 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Collection" href="data-collection.html" />
+    <link rel="prev" title="Frequently Asked Questions" href="faq.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SSRL-1-5
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basic-operation.html">Basic Operation in Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devices.html">Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plans.html">Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sample Alignment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-theory">The Theory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stage-leveling">Stage leveling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#theta-calibration">Theta Calibration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stage-height-calibration">Stage height calibration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stage-x-y-alignment">Stage x-y Alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xspress3-mca-calibration">Xspress3 MCA calibration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data-collection.html">Data Collection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Admin Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_hardware.html">Beamline Startup: High Throughput Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_software.html">Beamline Startup: EPICS and Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device-config.html">Device Configuration Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SSRL-1-5</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Sample Alignment</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/alignment.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sample-alignment">
+<h1>Sample Alignment<a class="headerlink" href="#sample-alignment" title="Permalink to this headline"></a></h1>
+<section id="the-theory">
+<h2>The Theory<a class="headerlink" href="#the-theory" title="Permalink to this headline"></a></h2>
+<p>Sample alignment can be a challenging process, particularly if the sample
+“gets lost” at any point.  It is important to remember that there is a method
+to the madness, and you can always start from the beginning to be sure of
+where the sample lies.  With a better understanding of the sample geometry it
+is of course possible to skip steps and align faster.  However, cutting corners
+can also get you lost, so when in doubt take your time.</p>
+<p>In this experiment, for a sample to be aligned we are looking to perform the
+following steps:</p>
+<ol class="arabic simple">
+<li><p>Stage leveling</p></li>
+<li><p>Theta calibration</p></li>
+<li><p>Stage height calibration</p></li>
+<li><p>x-y calibration</p></li>
+<li><p>xspress3 calibration</p></li>
+<li><p>Sample alignment</p></li>
+</ol>
+<p>[image of stage, top down, axes labeled]</p>
+<p>[image of stage in 3d, beam path context]</p>
+<section id="stage-leveling">
+<h3>Stage leveling<a class="headerlink" href="#stage-leveling" title="Permalink to this headline"></a></h3>
+<p>Stage leveling is performed by adjusting the pico motors and reading the stage
+height with the laser range finder.  The <code class="docutils literal notranslate"><span class="pre">level_s_stage</span></code> plan attempts to do
+both the x and y axes, but to level only one <code class="docutils literal notranslate"><span class="pre">level_stage_single</span></code> can be used.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">mov</span> py 0
+
+<span class="gp">In [2]: </span><span class="c1"># detector, pico, stage motor, pos over pico, pos to reference</span>
+<span class="go">RE(level_stage_single(lrf, vx, px, -50, 50))</span>
+
+<span class="gp">In [3]: </span><span class="o">%</span><span class="k">mov</span> px 43
+
+<span class="gp">In [4]: </span><span class="n">RE</span><span class="p">(</span><span class="n">level_stage_single</span><span class="p">(</span><span class="n">lrf</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="o">-</span><span class="mi">75</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="theta-calibration">
+<h3>Theta Calibration<a class="headerlink" href="#theta-calibration" title="Permalink to this headline"></a></h3>
+<p>With the stage leveled, we set the theta motor offset such that theta reads 0.
+Rough calibration is usually done with a simple bubble level and later refined
+using the beam.  This is done by iterating through:</p>
+<ul class="simple">
+<li><p>Scan beam stop w.r.t. theta</p></li>
+<li><p>Move to theta where signal is maximized</p></li>
+<li><p>Scan beam stop w.r.t. stage height (pz)</p></li>
+<li><p>Move to theta where <strong>derivative</strong> is maximized</p></li>
+</ul>
+</section>
+<section id="stage-height-calibration">
+<h3>Stage height calibration<a class="headerlink" href="#stage-height-calibration" title="Permalink to this headline"></a></h3>
+<p>This should be done in coordination with theta calibration.</p>
+</section>
+<section id="stage-x-y-alignment">
+<h3>Stage x-y Alignment<a class="headerlink" href="#stage-x-y-alignment" title="Permalink to this headline"></a></h3>
+<p>Centering the beam on the stage is obviously important, and can be accomplished
+in a variety of ways.  The simplest is often to move theta to some angle
+(1-2 degrees), find the center of a sample (copper dot), then center the laser
+on the dot.  The stage can then be moved such that the laser is in the center of
+the stage, and px/py zeroed.  Alternately one can use phosphor tape to find the
+beam.</p>
+<p>It is important to remember the offsets found during this alignment, as we will
+want to return to this as a ‘home’ setting.</p>
+</section>
+<section id="xspress3-mca-calibration">
+<h3>Xspress3 MCA calibration<a class="headerlink" href="#xspress3-mca-calibration" title="Permalink to this headline"></a></h3>
+<p>If this has not yet been done, move to a piece of copper foil and calibrate the
+Xspress3.
+See <a class="reference internal" href="device-config.html#xsp3-calibration"><span class="std std-ref">Calibrating the Xspress3</span></a> section for detailed instructions.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="faq.html" class="btn btn-neutral float-left" title="Frequently Asked Questions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data-collection.html" class="btn btn-neutral float-right" title="Data Collection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, roberttk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

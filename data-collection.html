@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Collection &mdash; SSRL-1-5 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Beamline Startup: High Throughput Hardware" href="beamline-startup_hardware.html" />
+    <link rel="prev" title="Sample Alignment" href="alignment.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SSRL-1-5
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basic-operation.html">Basic Operation in Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devices.html">Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plans.html">Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="alignment.html">Sample Alignment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Collection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-plan-choice">Basic plan choice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#managing-metadata">Managing metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extending-to-the-two-wafer-setup">Extending to the two wafer setup</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Admin Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_hardware.html">Beamline Startup: High Throughput Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_software.html">Beamline Startup: EPICS and Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device-config.html">Device Configuration Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SSRL-1-5</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Data Collection</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/data-collection.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-collection">
+<h1>Data Collection<a class="headerlink" href="#data-collection" title="Permalink to this headline"></a></h1>
+<p>Here we will go through the typical steps needed to collect data on a
+combinatorial library with the high throughput (HiTp) XRD setup.  There are
+many different types of samples that can be run, and we have tried to provide
+plans that cover the most common use cases.</p>
+<p>Here we will cover what typically happens once a sample has been loaded and
+the stage aligned.  This includes:</p>
+<ul class="simple">
+<li><p>basic use of plans</p></li>
+<li><p>Standard adding of metadata</p></li>
+<li><p>scripting higher level macros</p></li>
+</ul>
+<section id="basic-plan-choice">
+<h2>Basic plan choice<a class="headerlink" href="#basic-plan-choice" title="Permalink to this headline"></a></h2>
+<p>There are a variety of plans available at your disposal to take data on wafer
+libraries.  They are described in detail in <a class="reference internal" href="plans.html#hitp-plans"><span class="std std-ref">High Throughput (HiTp) specific plans</span></a>.  Some suggestions:</p>
+<p><strong>Take a single exposure.</strong> If you want to measure a single spot for
+diagnostic purposes, or for a single sample.  Note: exposure time is set per
+detector, as you can count from multiple detectors in a single call.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="n">pilDet</span><span class="p">]),</span> <span class="n">purpose</span><span class="o">=</span><span class="s1">&#39;testing&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Scan a detector with a motor.</strong> See <a class="reference internal" href="basic-operation.html#scanning-detectors"><span class="std std-ref">scanning-detectors</span></a></p>
+<p>The Xspress3 needs to know how many points are being measured before acquisition,
+so the command is a bit longer</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">;</span> <span class="n">xsp3</span><span class="o">.</span><span class="n">total_points</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">num</span><span class="p">);</span> <span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">rel_scan</span><span class="p">([</span><span class="n">xsp3</span><span class="p">],</span> <span class="n">py</span><span class="p">,</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span>
+<span class="gp">   ...: </span><span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">md</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;purpose&#39;</span><span class="p">:</span><span class="s1">&#39;align&#39;</span><span class="p">}))</span>
+</pre></div>
+</div>
+<p><strong>Run a “wafer-library”.</strong> Combinatorial samples are often deposited on a
+silicon wafer, requiring a slightly modified grid scan.</p>
+<p>The classic 177 point case.  Has the option to specify some number of points
+to skip, if a run was interrupted.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">loc_177_scan</span><span class="p">([</span><span class="n">pilDet</span><span class="p">],</span> <span class="n">skip</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sample_id</span><span class="o">=</span><span class="s1">&#39;XX001&#39;</span><span class="p">,</span>
+<span class="go">            purpose=&#39;measurement&#39;)</span>
+</pre></div>
+</div>
+<p>You can also supply your own locations.  The same skip functionality exists.
+A few location lists are provided, but you can always generate your own.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">loc_cust_scan</span><span class="p">([</span><span class="n">pilDet</span><span class="p">],</span> <span class="n">locYale41</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+<span class="go">         sample_id=&#39;XX001&#39;, purpose=&#39;measurement&#39;)</span>
+</pre></div>
+</div>
+<p>If you would like to confirm the order of acquisition, you can pass the laser
+range finder in as the detector and watch the acquisition</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">loc_cust_scan</span><span class="p">([</span><span class="n">lrf</span><span class="p">],</span> <span class="n">locYale41</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span> <span class="n">purpose</span><span class="o">=</span><span class="s1">&#39;testing&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="managing-metadata">
+<h2>Managing metadata<a class="headerlink" href="#managing-metadata" title="Permalink to this headline"></a></h2>
+<p>Labeling your runs is of critical importance.  The syntax of this has been
+covered in <a class="reference internal" href="basic-operation.html#managing-metadata"><span class="std std-ref">Managing Metadata</span></a>, but some guiding principles will be
+provided here.</p>
+<p>Metadata is stored in “key-value pairs”.  If you execute:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">plan</span><span class="p">(),</span> <span class="n">sample_id</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">purpose</span><span class="o">=</span><span class="s1">&#39;calibration&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">sample_id</span></code> and <code class="docutils literal notranslate"><span class="pre">purpose</span></code> are keys, while <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">caibration</span></code> are
+their respective values.</p>
+<p>Your metadata keys should be consistent across your dataset, otherwise you will
+have difficulty finding your data.  For example, if you end up using both
+<code class="docutils literal notranslate"><span class="pre">sample_name</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> to label your runs, you may end up missing data
+when you search the databroker later.</p>
+<p>As a fall back option, you can remember the scan number of any run that you
+believe will be important.  The scan number is automatically incremented for
+each plan/scan that is run, and is an easy way to record runs.  Writing these
+down in your own notes is recommended.</p>
+<p>Useful keys to add:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sample_name</span></code> : ‘A’, ‘B’, ‘test_wafer’ …</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">purpose</span></code>: ‘calibration’, ‘data’, ‘testing’ …</p></li>
+</ul>
+<p>Keys that are recorded automatically (as in you don’t need to add them yourself):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code> - In this context, the start time. (Other times are also recorded.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uid</span></code> - a globally unique ID for this run</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plan_name</span></code> - the function or class name of plan (e.g., ‘count’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plan_type</span></code> - e.g., the Python type of plan (e.g., ‘generator’)</p></li>
+</ul>
+</section>
+<section id="extending-to-the-two-wafer-setup">
+<h2>Extending to the two wafer setup<a class="headerlink" href="#extending-to-the-two-wafer-setup" title="Permalink to this headline"></a></h2>
+<p>Collecting data on two wafers is a simple extension of the plans we have
+discussed earlier.  This plan is a bit verbose for the sake of demonstration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@inject_md_decorator</span><span class="p">({</span><span class="s1">&#39;macro_name&#39;</span><span class="p">:</span><span class="s1">&#39;two_wafer&#39;</span><span class="p">})</span>
+<span class="k">def</span> <span class="nf">two_wafer</span><span class="p">(</span><span class="n">wafer1md</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;purpose&#39;</span><span class="p">:</span><span class="s1">&#39;testing&#39;</span><span class="p">},</span><span class="n">wafer2md</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;purpose&#39;</span><span class="p">:</span><span class="s1">&#39;testing&#39;</span><span class="p">}):</span>
+    <span class="c1"># get the current offsets</span>
+    <span class="n">curr_offsets</span> <span class="o">=</span> <span class="p">[</span><span class="n">px</span><span class="o">.</span><span class="n">user_offset</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span><span class="n">py</span><span class="o">.</span><span class="n">user_offset</span><span class="o">.</span><span class="n">get</span><span class="p">()]</span>
+
+    <span class="c1">#move to the first wafer, assuming we know the center</span>
+    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">w1_centerx</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">w1_centery</span><span class="p">)</span>
+
+    <span class="c1"># do the 177 loc scan</span>
+    <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">list_scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span><span class="n">px</span><span class="p">,</span><span class="o">-</span><span class="n">loc177</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">py</span><span class="p">,</span><span class="n">loc177</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">md</span><span class="o">=</span><span class="n">wafer1md</span><span class="p">)</span>
+
+    <span class="c1">#reset the motors</span>
+    <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">px</span><span class="o">.</span><span class="n">user_offset</span><span class="p">,</span> <span class="n">curr_offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="n">py</span><span class="o">.</span><span class="n">user_offset</span><span class="p">,</span> <span class="n">curr_offsets</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1">#move to the second wafer, assuming we know the center</span>
+    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">w2_centerx</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">w2_centery</span><span class="p">)</span>
+
+    <span class="c1"># do the 177 loc scan</span>
+    <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">list_scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span><span class="n">px</span><span class="p">,</span><span class="o">-</span><span class="n">loc177</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">py</span><span class="p">,</span><span class="n">loc177</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">md</span><span class="o">=</span><span class="n">wafer2md</span><span class="p">)</span>
+
+    <span class="c1">#reset the motors</span>
+    <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">px</span><span class="o">.</span><span class="n">user_offset</span><span class="p">,</span> <span class="n">curr_offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="n">py</span><span class="o">.</span><span class="n">user_offset</span><span class="p">,</span> <span class="n">curr_offsets</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="alignment.html" class="btn btn-neutral float-left" title="Sample Alignment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="beamline-startup_hardware.html" class="btn btn-neutral float-right" title="Beamline Startup: High Throughput Hardware" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, roberttk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

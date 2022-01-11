@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devices &mdash; SSRL-1-5 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Plans" href="plans.html" />
+    <link rel="prev" title="Basic Operation in Bluesky" href="basic-operation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SSRL-1-5
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-operation.html">Basic Operation in Bluesky</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Devices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#area-detectors">Area detectors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dexela-area-detector-dexdet-currently-not-connected">Dexela Area Detector: <code class="docutils literal notranslate"><span class="pre">dexDet</span></code> [Currently not connected]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#marccd-area-detector-mardet">MarCCD Area Detector: <code class="docutils literal notranslate"><span class="pre">marDet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#more-to-come-later">More to come later?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fluorescence-detectors">Fluorescence detectors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#xspress3-fluorescence-detector-xsp3">Xspress3 Fluorescence Detector: <code class="docutils literal notranslate"><span class="pre">xsp3</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motors">Motors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-stage-s-stage">Sample Stage: <code class="docutils literal notranslate"><span class="pre">s_stage</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plans.html">Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="alignment.html">Sample Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-collection.html">Data Collection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Admin Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_hardware.html">Beamline Startup: High Throughput Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beamline-startup_software.html">Beamline Startup: EPICS and Bluesky</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device-config.html">Device Configuration Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SSRL-1-5</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Devices</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/devices.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="devices">
+<h1>Devices<a class="headerlink" href="#devices" title="Permalink to this headline"></a></h1>
+<p>A variety of devices are available for use at SSRL-1-5.  Currently only
+High Throughput (HiTp) diffraction is supported, but more functionality will
+be added in the future.</p>
+<p>While most PV’s are accessible from the ipython session, it’s generally
+advised to use the GUI elements to adjust parameters like exposure time or
+frame rates.</p>
+<section id="area-detectors">
+<h2>Area detectors<a class="headerlink" href="#area-detectors" title="Permalink to this headline"></a></h2>
+<section id="dexela-area-detector-dexdet-currently-not-connected">
+<h3>Dexela Area Detector: <code class="docutils literal notranslate"><span class="pre">dexDet</span></code> [Currently not connected]<a class="headerlink" href="#dexela-area-detector-dexdet-currently-not-connected" title="Permalink to this headline"></a></h3>
+<p>The Dexela area detector requires dark field correction.  We have already
+included a plan for this purpose.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span> <span class="n">bp</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="n">dexDet</span><span class="p">])</span> <span class="p">)</span> <span class="c1"># basic count plan</span>
+
+<span class="gp">In [2]: </span><span class="n">uids</span> <span class="o">=</span> <span class="n">RE</span><span class="p">(</span><span class="n">dark_light_plan</span><span class="p">([</span><span class="n">dexDet</span><span class="p">],</span> <span class="n">shutter</span><span class="p">))</span> <span class="c1"># take a dark image followed by a light image</span>
+</pre></div>
+</div>
+</section>
+<section id="marccd-area-detector-mardet">
+<h3>MarCCD Area Detector: <code class="docutils literal notranslate"><span class="pre">marDet</span></code><a class="headerlink" href="#marccd-area-detector-mardet" title="Permalink to this headline"></a></h3>
+<p>The MarCCD area detector does not require any dark field correction and can be
+used directly</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span> <span class="n">bp</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="n">marDet</span><span class="p">])</span> <span class="p">)</span> <span class="c1"># basic count plan</span>
+
+<span class="gp">In [2]: </span><span class="n">RE</span><span class="p">(</span><span class="n">mesh_circ_grid</span><span class="p">([</span><span class="n">marDet</span><span class="p">],</span> <span class="n">s_stage</span><span class="o">.</span><span class="n">px</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span>
+<span class="go">                                s_stage.py, -10, 10, 4.5,</span>
+<span class="go">                                radius=10, skip=4 ))</span>
+</pre></div>
+</div>
+</section>
+<section id="more-to-come-later">
+<h3>More to come later?<a class="headerlink" href="#more-to-come-later" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="fluorescence-detectors">
+<h2>Fluorescence detectors<a class="headerlink" href="#fluorescence-detectors" title="Permalink to this headline"></a></h2>
+<section id="xspress3-fluorescence-detector-xsp3">
+<h3>Xspress3 Fluorescence Detector: <code class="docutils literal notranslate"><span class="pre">xsp3</span></code><a class="headerlink" href="#xspress3-fluorescence-detector-xsp3" title="Permalink to this headline"></a></h3>
+<p>The Xspress3 detector writes .h5 files on each acquisition.  Both the full
+multi-channel arrays (MCA’s) and integrated ROI values are accessible via PV
+access, and can be inspected directly on the python interpreter.  Normally
+ROI ranges should be adjusted from the EDM display.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">xsp3</span><span class="o">.</span><span class="n">channel1</span><span class="o">.</span><span class="n">rois</span><span class="o">.</span><span class="n">roi01</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="gh">Out[1]:</span>
+<span class="go">OrderedDict([(&#39;xsp3_channel1_rois_roi01_value&#39;,</span>
+<span class="go">            {&#39;value&#39;: 0.0, &#39;timestamp&#39;: 1598804648.400984})])</span>
+</pre></div>
+</div>
+<p>Taking single measurements via <code class="docutils literal notranslate"><span class="pre">bp.count</span></code> is valid.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="n">xsp3</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>If taking multiple acquisitions in one run, we must make sure the <code class="docutils literal notranslate"><span class="pre">xsp3.total_points</span></code>
+variable matches the number of acquisitions to be taken.  This ensures that all MCA’s
+in one run will be placed in a single h5 file.  Bluesky and Databroker assume
+this behavior when accessing saved data.  <strong>We have done our best to create plans
+that cover this use case</strong>, but if needed this value can be adjusted manually.
+Taking a single acquisition with <code class="docutils literal notranslate"><span class="pre">bp.count</span></code> requires you to reset
+<code class="docutils literal notranslate"><span class="pre">xsp3.total_points</span></code> to 1.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">xsp3</span><span class="o">.</span><span class="n">total_points</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="gp">In [2]: </span><span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">([</span><span class="n">xsp3</span><span class="p">],</span> <span class="n">motor</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="go">Transient Scan ID: 2     Time: 2020-09-02 09:57:51</span>
+<span class="go">Persistent Unique Scan ID: &#39;f0c7917f-f8bf-4d00-88a6-a9383f0920bb&#39;</span>
+<span class="go">New stream: &#39;primary&#39;</span>
+<span class="go">+-----------+------------+------------+</span>
+<span class="go">|   seq_num |       time |      motor |</span>
+<span class="go">+-----------+------------+------------+</span>
+<span class="go">|         1 | 09:57:53.2 |     -1.000 |</span>
+<span class="go">|         2 | 09:57:54.5 |     -0.500 |</span>
+<span class="go">|         3 | 09:57:55.6 |      0.000 |</span>
+<span class="go">|         4 | 09:57:56.6 |      0.500 |</span>
+<span class="go">|         5 | 09:57:57.7 |      1.000 |</span>
+<span class="go">+-----------+------------+------------+</span>
+<span class="go">generator scan [&#39;f0c7917f&#39;] (scan num: 2)</span>
+
+<span class="gp">In [3]: </span><span class="n">db</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gh">Out[5]:</span>
+<span class="go">                                time  ...                                      xsp3_channel2</span>
+<span class="go">seq_num                                ...</span>
+<span class="go">1       2020-09-02 16:57:53.278821945  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</span>
+<span class="go">2       2020-09-02 16:57:54.541794538  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</span>
+<span class="go">3       2020-09-02 16:57:55.604745626  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</span>
+<span class="go">4       2020-09-02 16:57:56.668115139  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</span>
+<span class="go">5       2020-09-02 16:57:57.731433153  ...  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</span>
+
+<span class="go">[5 rows x 11 columns]</span>
+
+<span class="gp">In [4]: </span><span class="c1"># A more consolidated command</span>
+<span class="go">... num=60; xsp3.total_points.put(num); RE(bp.rel_scan([xsp3], px, -40,40, num=num)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="motors">
+<h2>Motors<a class="headerlink" href="#motors" title="Permalink to this headline"></a></h2>
+<section id="sample-stage-s-stage">
+<h3>Sample Stage: <code class="docutils literal notranslate"><span class="pre">s_stage</span></code><a class="headerlink" href="#sample-stage-s-stage" title="Permalink to this headline"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">s_stage</span></code> has the following components, used to control the sample setup.
+These can be accessed either from the parent <code class="docutils literal notranslate"><span class="pre">s_stage</span></code> object or for
+convenience by their individual names (<code class="docutils literal notranslate"><span class="pre">px</span></code>, <code class="docutils literal notranslate"><span class="pre">py</span></code>, etc)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 30%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Component name</p></th>
+<th class="head"><p>Motor name</p></th>
+<th class="head"><p>Units</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">px</span></code></p></td>
+<td><p>Plate x</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">py</span></code></p></td>
+<td><p>Plate y</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pz</span></code></p></td>
+<td><p>Plate z</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vx</span></code></p></td>
+<td><p>Vert x</p></td>
+<td><p>steps</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vy</span></code></p></td>
+<td><p>Vert x</p></td>
+<td><p>steps</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">RE</span><span class="p">(</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">s_stage</span><span class="o">.</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># move stage plate x to 0</span>
+
+<span class="gp">In [2]: </span><span class="n">RE</span><span class="p">(</span> <span class="n">bps</span><span class="o">.</span><span class="n">mvr</span><span class="p">(</span><span class="n">pz</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># move stage height -1 from current position</span>
+
+<span class="gp">In [3]: </span><span class="o">%</span><span class="k">movr</span> pz -1 # Same as above, move relative stage height by -1
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="basic-operation.html" class="btn btn-neutral float-left" title="Basic Operation in Bluesky" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plans.html" class="btn btn-neutral float-right" title="Plans" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, roberttk.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
