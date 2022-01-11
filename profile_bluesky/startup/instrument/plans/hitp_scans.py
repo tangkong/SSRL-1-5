@@ -499,7 +499,7 @@ def opt_two_wafer(wafer1md={'wafer':'wafer1'},wafer2md={'wafer':'wafer2'},opt=Fa
     yield from home()
 
 @inject_md_decorator({'macro_name':'two_wafer'})
-def two_wafer(wafer1md={'purpose':'testing'},wafer2md={'purpose':'testing'}):
+def two_wafer(det, wafer1md={'purpose':'testing'},wafer2md={'purpose':'testing'}):
     # don't try so hard
 
     # get the current offsets
