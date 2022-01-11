@@ -31,6 +31,8 @@ may be too verbose for the average user.  More specialized plans will be covered
 in the :doc:`plans` section
 
 
+.. _scanning-detectors:
+
 Scanning detectors: ``bp.scan``
 -------------------------------
 The scan plan takes in a list of detectors to measure, a motor to scan, a start 

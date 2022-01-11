@@ -17,7 +17,52 @@ the stage aligned.  This includes:
 Basic plan choice
 -----------------
 There are a variety of plans available at your disposal to take data on wafer 
-libraries.  They are described in detail in :ref:`hitp-plans`
+libraries.  They are described in detail in :ref:`hitp-plans`.  Some suggestions:
+
+**Take a single exposure.** If you want to measure a single spot for 
+diagnostic purposes, or for a single sample.  Note: exposure time is set per 
+detector, as you can count from multiple detectors in a single call.
+
+.. code-block:: ipython
+    
+    In [1]: RE(bp.count([pilDet]), purpose='testing')
+
+**Scan a detector with a motor.** See :ref:`scanning-detectors <scanning-detectors>`
+
+The Xspress3 needs to know how many points are being measured before acquisition, 
+so the command is a bit longer
+
+.. code-block:: ipython
+
+    In [1]: num=50; xsp3.total_points.put(num); RE(bp.rel_scan([xsp3], py,-45,45, 
+       ...: num=num, md={'purpose':'align'}))
+
+
+**Run a "wafer-library".** Combinatorial samples are often deposited on a 
+silicon wafer, requiring a slightly modified grid scan.  
+
+The classic 177 point case.  Has the option to specify some number of points 
+to skip, if a run was interrupted.  
+
+.. code-block:: ipython
+    
+    In [1]: RE(loc_177_scan([pilDet], skip=0), sample_id='XX001', 
+                purpose='measurement')
+
+You can also supply your own locations.  The same skip functionality exists. 
+A few location lists are provided, but you can always generate your own.  
+
+.. code-block:: ipython
+    
+    In [1]: RE(loc_cust_scan([pilDet], locYale41, skip=10), 
+             sample_id='XX001', purpose='measurement')
+
+If you would like to confirm the order of acquisition, you can pass the laser 
+range finder in as the detector and watch the acquisition
+
+.. code-block:: ipython
+    
+    In [1]: RE(loc_cust_scan([lrf], locYale41, skip=10), purpose='testing')
 
 
 Managing metadata
@@ -52,7 +97,7 @@ Useful keys to add:
 - ``purpose``: 'calibration', 'data', 'testing' ...
 
 
-Keys that are recorded automatically: 
+Keys that are recorded automatically (as in you don't need to add them yourself): 
 
 - ``time`` - In this context, the start time. (Other times are also recorded.)
 - ``uid`` - a globally unique ID for this run
@@ -79,8 +124,8 @@ discussed earlier.  This plan is a bit verbose for the sake of demonstration.
         yield from bp.list_scan([det],px,-loc177[0],py,loc177[1],md=wafer1md)
 
         #reset the motors
-        px.user_offset.set(curr_offsets[0])
-        py.user_offset.set(curr_offsets[1])
+        yield from bp.mv(px.user_offset, curr_offsets[0], 
+                         py.user_offset, curr_offsets[1])
 
         #move to the second wafer, assuming we know the center
         yield from bps.mv(px, w2_centerx, py, w2_centery)
@@ -88,7 +133,7 @@ discussed earlier.  This plan is a bit verbose for the sake of demonstration.
         # do the 177 loc scan
         yield from bp.list_scan([det],px,-loc177[0],py,loc177[1],md=wafer2md)
 
-        # reset the motors
-        px.user_offset.set(curr_offsets[0])
-        py.user_offset.set(curr_offsets[1])
+        #reset the motors
+        yield from bp.mv(px.user_offset, curr_offsets[0], 
+                         py.user_offset, curr_offsets[1])
 
